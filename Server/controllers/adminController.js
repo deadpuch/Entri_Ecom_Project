@@ -67,7 +67,7 @@ export const adminLogin = async (req, res, next) => {
 
     const token = generateToken(checkadmin, "admin");
     res.cookie("token", token, {
-      sameSite: "Lax",
+      sameSite: "None",
       secure: true,
       httpOnly: true,
     });

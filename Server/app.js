@@ -7,7 +7,7 @@ import cors from "cors";
 connectdb();
 
 const app = express();
-app.use(cookieParser());
+app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:5173","https://entri-ecom-adminclient.vercel.app"],
@@ -15,7 +15,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.use(express.json());
+app.use(cookieParser());
 
 const port = 3000;
 
