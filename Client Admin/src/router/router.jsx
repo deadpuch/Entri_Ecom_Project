@@ -8,8 +8,6 @@ import { BrowserRouter, Route } from "react-router";
 import { Routes } from "react-router";
 import { ProtectRoutes } from "./ProtectRoutes";
 
-
-
 export const Router = () => {
   return (
     <BrowserRouter>
