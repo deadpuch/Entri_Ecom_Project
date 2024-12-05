@@ -32,10 +32,10 @@ export const adminSignup = async (req, res, next) => {
 
     const token = generateToken(newadmin, "admin");
     res.cookie("token", token,{
-      sameSite:'lax',
+      same_site:"none",
       secure: true,
       httpOnly: true,
-      domain: 'entri-ecom-adminclient.vercel.app',
+      // domain: 'entri-ecom-adminclient.vercel.app',
     });
 
     res.json({ message: "admin created successfully" });
@@ -67,10 +67,10 @@ export const adminLogin = async (req, res, next) => {
 
     const token = generateToken(checkadmin, "admin");
     res.cookie("token", token,{
-      sameSite:'none',
+      same_site:'none',
       secure: true,
       httpOnly: true,
-      domain: 'entri-ecom-adminclient.vercel.app',
+      // domain: 'entri-ecom-adminclient.vercel.app',
     });
 
     res.json({ message: "admin Login successfull" });
