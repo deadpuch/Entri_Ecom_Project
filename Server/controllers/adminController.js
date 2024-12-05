@@ -32,7 +32,7 @@ export const adminSignup = async (req, res, next) => {
 
     const token = generateToken(newadmin, "admin");
     res.cookie("token", token,{
-      sameSite:'none',
+      sameSite:'lax',
       secure: true,
       httpOnly: true,
     });
@@ -66,7 +66,7 @@ export const adminLogin = async (req, res, next) => {
 
     const token = generateToken(checkadmin, "admin");
     res.cookie("token", token,{
-      sameSite:'none',
+      sameSite:'lax',
       secure: true,
       httpOnly: true,
     });
