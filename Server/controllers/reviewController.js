@@ -4,11 +4,17 @@ import { PRODUCT } from "../models/productModel.js";
 export const createReview = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const { rating, comment,user_data } = req.body;
+    const { rating, comment, user_data } = req.body;
     const userId = req.user.id;
 
     // Create the review
-    const review = await REVIEW.create({ userId, productId, rating, comment,user_data:userId });
+    const review = await REVIEW.create({
+      userId,
+      productId,
+      rating,
+      comment,
+      user_data: userId,
+    });
 
     // Link the review to the product
     await PRODUCT.findByIdAndUpdate(productId, {
@@ -29,7 +35,10 @@ export const allReview = async (req, res, next) => {
   try {
     const { userId } = req.user.id;
 
-    const reviews = await REVIEW.find(userId).populate("user_data","User_name profilePic")
+    const reviews = await REVIEW.find(userId).populate(
+      "user_data",
+      "User_name profilePic"
+    );
 
     if (!reviews.length) {
       return res
@@ -50,9 +59,10 @@ export const deleteReview = async (req, res, next) => {
     const { reviewId } = req.params;
     const userId = req.user.id;
 
-    console.log(userId);
-    
-    const review = await REVIEW.findOneAndDelete({ _id: reviewId},{user_data:userId});
+    const review = await REVIEW.findOneAndDelete(
+      { _id: reviewId },
+      { user_data: userId }
+    );
 
     if (!review) {
       return res

@@ -8,56 +8,64 @@ export const addProduct = async (req, res, next) => {
   try {
     const {
       productName,
-      productImage,
       Product_Quantity,
       unit,
       price,
-      thumbnail,
       productDescription,
       category,
-      admin_data,
       review,
-
     } = req.body;
 
+    // Validate required fields
     if (!productName || !price || !Product_Quantity || !unit) {
-      return res.status(400).json({ message: "field required" });
+      return res.status(400).json({ message: "Required fields are missing" });
     }
 
-    const arrayImage = req.files.itemImage;
-    const thumbImg = req.files.thumbnail[0];
+    const updateFields = {}; // Object to collect processed fields
 
-    const itemImg = arrayImage.map((file) =>
-      limit(async () => {
-        const imageUrl = (await cloudnaryInstance.uploader.upload(file.path))
-          .url;
-        return imageUrl;
-      })
-    );
-    let itemImages = await Promise.all(itemImg);
+    // Process multiple product images if provided
+    if (req.files?.itemImage?.length > 0) {
+      const arrayImage = req.files.itemImage;
+      const itemImg = arrayImage.map((file) =>
+        limit(async () => {
+          const imageUrl = (await cloudnaryInstance.uploader.upload(file.path))
+            .url;
+          return imageUrl;
+        })
+      );
+      updateFields.productImage = await Promise.all(itemImg);
+    }
 
-    const thumbImage = (await cloudnaryInstance.uploader.upload(thumbImg.path))
-      .url;
+    // Process thumbnail image if provided
+    if (req.files?.thumbnail?.length > 0) {
+      const thumbImg = req.files.thumbnail[0];
+      updateFields.thumbnail = (
+        await cloudnaryInstance.uploader.upload(thumbImg.path)
+      ).url;
+    }
 
+    // Create the new product object
     const newProduct = new PRODUCT({
       productName,
-      productImage: itemImages,
+      productImage: updateFields.productImage || [], // Default to an empty array if no images
       Product_Quantity,
       unit,
       price,
-      thumbnail: thumbImage,
+      thumbnail: updateFields.thumbnail || "", // Default to an empty string if no thumbnail
       productDescription,
       category,
-      admin_data: req.admin.id,
-      review
+      admin_data: req.admin?.id || null, // Ensure admin data is included
+      review,
     });
+
+    // Save the product to the database
     await newProduct.save();
 
-    res.json({ message: "product added successfully" });
+    res.json({ message: "Product added successfully" });
   } catch (error) {
     res
       .status(error.statusCode || 500)
-      .json({ message: error.message || "internal server error" });
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -69,8 +77,6 @@ export const getProduct = async (req, res, next) => {
       "admin_data",
       "-password -Email -__v -createdAt -updatedAt"
     );
-
-    console.log(adminProduct, "ppp");
 
     res.json({
       message: "product fetched successfully",

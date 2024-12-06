@@ -54,8 +54,6 @@ export const getAllItem = async (req, res, next) => {
   try {
     const userId = req.user.id;
 
-    console.log(userId);
-
     const cart = await Cart.findOne({ userId: userId }).populate(
       "products.productId"
     );

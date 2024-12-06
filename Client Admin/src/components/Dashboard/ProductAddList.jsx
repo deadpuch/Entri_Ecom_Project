@@ -7,6 +7,9 @@ import toast from "react-hot-toast/headless";
 export const ProductAddList = ({ item }) => {
   const [isSelected, setIsSelected] = useState(false);
 
+console.log(item,"===item");
+
+
   const handleCheckboxChange = () => {
     setIsSelected(!isSelected);
   };
@@ -63,7 +66,7 @@ export const ProductAddList = ({ item }) => {
       <div className="flex justify-center">{item?.unit}</div>
 
       {/* Count */}
-      <div className="flex justify-center">2</div>
+      <div className="flex justify-center"> {item.review && Array.isArray(item.review) && item.review.length}</div>
 
       {/* Icons */}
       <div className="flex justify-center gap-5">

@@ -246,34 +246,34 @@ export const TerminateSeller = async (req, res, next) => {
   }
 };
 
-export const addAdvImage = async (req, res, next) => {
-  try {
-    const { img } = req.body;
+// export const addAdvImage = async (req, res, next) => {
+//   try {
+//     const { img } = req.body;
 
-    // if (!img) {
-    //   return res.json({ message: "Add Image" });
-    // }
+//     // if (!img) {
+//     //   return res.json({ message: "Add Image" });
+//     // }
 
-    console.log(req.files);
+//     console.log(req.files);
 
-    const arrayImage = req.files.advImages;
-    const itemImg = arrayImage.map((file) =>
-      limit(async () => {
-        const imageUrl = (await cloudnaryInstance.uploader.upload(file.path))
-          .url;
-        return imageUrl;
-      })
-    );
+//     const arrayImage = req.files.advImages;
+//     const itemImg = arrayImage.map((file) =>
+//       limit(async () => {
+//         const imageUrl = (await cloudnaryInstance.uploader.upload(file.path))
+//           .url;
+//         return imageUrl;
+//       })
+//     );
 
-    const newAdvImg = new MOBILECAROSAL({
-      img: imageUrl,
-    });
+//     const newAdvImg = new MOBILECAROSAL({
+//       img: imageUrl,
+//     });
 
-    await newAdvImg.save();
-    res.json({ message: "image added successfully" });
-  } catch (error) {
-    res
-      .status(error.statusCode || 500)
-      .json({ message: error.message || "internal server error" });
-  }
-};
+//     await newAdvImg.save();
+//     res.json({ message: "image added successfully" });
+//   } catch (error) {
+//     res
+//       .status(error.statusCode || 500)
+//       .json({ message: error.message || "internal server error" });
+//   }
+// };

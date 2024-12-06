@@ -79,15 +79,11 @@ export const salesLogin = async (req, res, next) => {
   }
 };
 
-
 export const salesProfile = async (req, res, next) => {
   try {
     const salesId = req.sales.id;
 
     const salesProfile = await SELLER.findById(salesId).select("-password");
-
-    console.log(salesId,"===sales");
-    
 
     res.json({ message: "profile fetch successfully", data: salesProfile });
   } catch (error) {
@@ -97,7 +93,6 @@ export const salesProfile = async (req, res, next) => {
   }
 };
 
-
 export const salesProfileUpdate = async (req, res, next) => {
   try {
     const { name, Email, company_name, profilePic } = req.body;
@@ -106,10 +101,8 @@ export const salesProfileUpdate = async (req, res, next) => {
     const profile = req.file;
     const propic = (await cloudnaryInstance.uploader.upload(profile.path)).url;
 
-
-
     await SELLER.updateOne(
-      { _id:salesId},
+      { _id: salesId },
       {
         $set: {
           name: name,
@@ -127,7 +120,6 @@ export const salesProfileUpdate = async (req, res, next) => {
       .json({ message: error.message || "internal server error" });
   }
 };
-
 
 export const salesResetPassword = async (req, res, next) => {
   try {
@@ -153,8 +145,6 @@ export const salesResetPassword = async (req, res, next) => {
   }
 };
 
-
-
 export const salesLogout = async (req, res, next) => {
   try {
     res.clearCookie("token");
@@ -167,11 +157,10 @@ export const salesLogout = async (req, res, next) => {
   }
 };
 
-
 export const salesDeleteAccount = async (req, res, next) => {
   try {
     const salesId = req.sales.id;
-    await SELLER.deleteOne({ _id:salesId});
+    await SELLER.deleteOne({ _id: salesId });
 
     res.json({ message: "account deleted" });
   } catch (error) {
