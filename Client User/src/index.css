@@ -94,7 +94,7 @@ section > ul > .active {
   grid-column: 4/6;
   grid-row: 3/4;
   border-radius: 1rem;
-  background-image: url("IMG/05.jpg");
+  background-image: url("/IMG/05.jpg");
   background-size: cover;
 }
 .grid-container > .item_8 {
