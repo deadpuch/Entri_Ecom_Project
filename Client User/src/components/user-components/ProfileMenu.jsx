@@ -9,7 +9,7 @@ export const ProfileMenu = () => {
       <div className="h-[80vh]  w-fit p-5 border-2 rounded-2xl flex justify-center py-10 bg-slate-50">
         <ul className="gap-6 flex flex-col items-baseline">
           <NavLink
-            to="/user-profile"
+            to="/user-profile/my-profile"
             className={({ isActive }) =>
               `flex justify-center px-2 py-1 rounded-full transition-all ${
                 isActive
@@ -36,15 +36,18 @@ export const ProfileMenu = () => {
 
           <NavLink
             to="/user-profile/deactive"
-            className={({ isActive }) =>
-              `flex justify-center px-2 py-1 rounded-full transition-all ${
-                isActive
-                  ? " text-white web-Nav-active"
-                  : "hover:bg-blue-300 hover:text-white"
-              }`
-            }
+            className={
+              ({isActive}) => 
+               
+                `flex justify-center px-2 py-1 rounded-full transition-all ${
+                  isActive
+                    ? " text-white web-Nav-active"
+                    : "hover:bg-blue-300 hover:text-white"
+                }`
+              }
+              
           >
-            <li className="flex justify-center hover:bg-blue-300 hover:px-2 hover:py-1 hover:rounded-full transition-all ">
+            <li >
               Status
             </li>
           </NavLink>

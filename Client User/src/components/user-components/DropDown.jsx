@@ -24,7 +24,7 @@ export const DropDown = () => {
     <div className="w-[200px] h-auto p-4 bg-white rounded-2xl">
       <div>
         <ul>
-          <NavLink to="user-profile">
+          <NavLink to="user-profile/my-profile">
             <li className="border-b-[1px] border-gray-200 pb-2 mb-3">
               Profile
             </li>

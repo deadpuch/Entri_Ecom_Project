@@ -1,8 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Darkmode } from "../shared/Darkmode";
 
 export const Nav = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleSignup = () => {
+    navigate("signup");
+  };
+
   return (
     <>
       {/* mobile Nav */}
@@ -109,21 +119,39 @@ export const Nav = () => {
           </div>
 
           <ul className="flex items-center gap-4">
-            <NavLink to="/" style={({isActive})=>{
-              isActive?"active":"";
-            }}>
-              <li>
-                Home
-              </li>
+            <NavLink
+              to="/"
+              style={({ isActive }) => {
+                isActive ? "active" : "";
+              }}
+            >
+              <li>Home</li>
             </NavLink>
-            <li>Product</li>
-            <li>About</li>
-            <li>Contact</li>
+
+            <NavLink
+              to="/products"
+              style={({ isActive }) => {
+                isActive ? "active" : "";
+              }}
+            >
+              <li>Product</li>
+            </NavLink>
+
+            <NavLink to="/about"
+              style={({ isActive }) => {
+                isActive ? "active" : "";
+              }}>
+              <li>About</li>
+            </NavLink>
           </ul>
 
           <div className="flex gap-4">
-            <button className="btn">SignUp</button>
-            <button className="btn btn-outline">Login</button>
+            <button className="btn" onClick={handleSignup}>
+              SignUp
+            </button>
+            <button className="btn btn-outline" onClick={handleLogin}>
+              Login
+            </button>
           </div>
         </nav>
       </header>

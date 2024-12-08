@@ -23,7 +23,7 @@ export const EditProfile = () => {
   }, [data]);
 
   const onSubmit = async (data) => {
-    console.log(data, "====data");
+   
 
     try {
       const formData = new FormData();

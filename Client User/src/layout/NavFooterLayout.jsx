@@ -32,7 +32,9 @@ export const UserLayout = () => {
   return (
     <>
       {isUserAuth ? <UserAuthNav /> : <Nav />}
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

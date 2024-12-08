@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
 import { clearAdminData, saveAdminData } from "../../Redux/features/adminSlice";
+import { useFetch } from "../../hooks/userFetch";
 
 const Menu = () => {
+  const [data] = useFetch("admin/profile");
   const { isAdminAuth, adminData } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -124,7 +126,7 @@ const Menu = () => {
         {/* profile and logout */}
 
         <div className="my-10 flex flex-col items-center gap-5">
-          <NavLink to="setting">
+          <NavLink to="/setting/admin-profile">
             <div>
               <svg
                 width="25"
@@ -149,8 +151,8 @@ const Menu = () => {
             </div>
           </NavLink>
 
-          <div className=" rounded-full h-[40px] w-[40px] bg-white">
-            <img src="" alt="" />
+          <div className=" rounded-full h-[40px] w-[40px] overflow-hidden bg-white">
+            <img src={data?.profilePic} alt="" className="w-full h-full block object-cover" />
           </div>
 
           <div onClick={handleLogout} className=" cursor-pointer">

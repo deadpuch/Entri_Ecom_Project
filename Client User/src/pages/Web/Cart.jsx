@@ -3,13 +3,41 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/user-components/CartItem";
 import { useFetch } from "../../hooks/useFetch";
+import { axiosInstance } from "../../config/axiosInstance";
+import { loadStripe } from "@stripe/stripe-js";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const [cartItems,loading]=useFetch("/cart/showItems")
+  const [cartItems, loading] = useFetch("/cart/showItems");
 
-  console.log(cartItems,"cartItmes=====");
-  
+  console.log(cartItems, "====cart");
+  console.log(cartItems?.[0]?.products?.[0], "====Items");
+
+  // const handleCheckout=()=>{
+  //   navigate("/checkout")
+  // }
+
+  const handleCheckout = async () => {
+    try {
+      const stripe = await loadStripe(
+        import.meta.env.VITE_STRIPE_Publishable_key
+      );
+
+      const session = await axiosInstance({
+        url: "/payment/create-checkout-session",
+        method: "POST",
+        data: { products: cartItems?.[0]?.products },
+      });
+      console.log(session, "=======session");
+
+      const result = stripe.redirectToCheckout({
+        sessionId: session?.data?.sessionId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <main className="md:hidden">
@@ -62,7 +90,11 @@ export const Cart = () => {
                 <h1 className="font-semibold text-[2rem]">Bag</h1>
 
                 <div className="scrollbar_change h-[80vh] overflow-y-scroll ">
-                 {cartItems?.map((value)=>( <CartItem data={value} key={value._id} />))}
+                  {cartItems?.map((value) => (
+                    <CartItem data={value} key={value._id} />
+                  ))}
+
+                  {console.log(CartItem, "====item")}
                 </div>
               </div>
               <div>
@@ -71,12 +103,12 @@ export const Cart = () => {
                 <div className="border-b-2">
                   <div className=" flex  justify-between mb-3">
                     <h1>subtotal</h1>
-                    <h1>₹100</h1>
+                    <h1>₹{cartItems?.[0]?.totalPrice}</h1>
                   </div>
 
                   <div className=" flex  justify-between mb-6">
                     <h1>Estimated Delivery & Handling</h1>
-                    <h1>₹100</h1>
+                    <h1>free</h1>
                   </div>
                 </div>
 
@@ -84,9 +116,13 @@ export const Cart = () => {
                   <div>
                     <div className="h-[4rem] mb-10 items-center border-b-2 flex  justify-between">
                       <h1 className="font-semibold text-[1.5em]">Total</h1>
-                      <h1 className="font-semibold text-[1.5em]">₹100</h1>
+                      <h1 className="font-semibold text-[1.5em]">
+                        ₹{cartItems?.[0]?.totalPrice}
+                      </h1>
                     </div>
-                    <button className="btn w-full">Check Out</button>
+                    <button className="btn w-full" onClick={handleCheckout}>
+                      Check Out
+                    </button>
                   </div>
                 </div>
               </div>

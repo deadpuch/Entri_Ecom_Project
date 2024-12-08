@@ -8,6 +8,8 @@ import { useFetch } from "../../hooks/useFetch";
 import { ProductCard } from "../../components/user-components/ProductCard";
 import { Footer } from "../../components/user-components/Footer";
 import { Testimonial } from "../../components/user-components/Testimonial";
+import { LatestCard } from "../../components/user-components/LatestCard";
+import { TesmonialFront } from "../../components/user-components/TesmonialFront";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -217,13 +219,13 @@ export const Home = () => {
 
         {/* Skin Products */}
 
-        <section className="2xl:container 2xl:mx-auto my-10 mx-4">
-          <h1 className="font-Edu text-[1.5rem] mb-5">Care For Skin</h1>
+        <section className="2xl:container xl:conatiner lg:container md:container mx-auto my-10  ">
+          <h1 className="font-Edu text-[1.5rem] mb-5">Latest products</h1>
 
-          <div className="2xl:columns-4 md:columns-4 gap-4 ">
-            {[...Array(4)].map((_, i) => (
-              <ProductCard key={i} />
-            ))}
+          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2">
+            {Item?.map((value)=>(<LatestCard key={value._id} data={value} />))
+              
+            }
           </div>
         </section>
 
@@ -242,10 +244,11 @@ export const Home = () => {
               <br />
             </p>
           </div>
-          <div className=" 2xl:container  2xl:mx-auto items-center h-full w-full gap-4  grid grid-cols-3">
-            <Testimonial />
-            <Testimonial />
-            <Testimonial />
+          <div className=" 2xl:container xl:conatiner lg:container md:container mx-auto items-center h-full w-full gap-4  grid grid-cols-3">
+            <TesmonialFront />
+            <TesmonialFront />
+            <TesmonialFront />
+            
           </div>
         </section>
       </main>

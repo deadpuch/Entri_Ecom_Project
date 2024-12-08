@@ -17,6 +17,7 @@ import { RestPassword } from "../pages/Web/RestPassword";
 import { EditProfile } from "../pages/Edit_Profile/EditProfile";
 import { DeactiveAc } from "../pages/Edit_Profile/DeactiveAc";
 import { ProtectedRouter } from "./ProtectedRouter";
+import { CheckOut } from "../pages/Web/CheckOut";
 
 export const RouterPath = () => {
   const params = useParams();
@@ -27,7 +28,9 @@ export const RouterPath = () => {
         <Route path="reset_password" element={<RestPassword />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
+
         <Route element={<UserLayout />} errorElement={<ErrorPage />}>
+        
           <Route index element={<Home />} />
           <Route path="products" element={<Product />} />
           <Route path="profile" element={<Profile />} />
@@ -35,10 +38,12 @@ export const RouterPath = () => {
           <Route path="cart" element={<Cart />} />
 
           <Route element={<ProtectedRouter />}>
-            <Route path="checkout" element={<Cart/>} />
+            <Route path="checkout" element={<CheckOut/>} />
             <Route path="user-profile" element={<UserEditLayout />}>
-              <Route index element={<Myprofile />} />
+              <Route path="my-profile" element={<Myprofile />} />
               <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="deactive" element={<DeactiveAc />} />
+              <Route path="deactive" element={<DeactiveAc />} />
               <Route path="deactive" element={<DeactiveAc />} />
             </Route>
           </Route>
@@ -46,6 +51,7 @@ export const RouterPath = () => {
           <Route path="productDetails/:id" element={<ProductDetail />} />
         </Route>
         <Route path="search" element={<SearchBar />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

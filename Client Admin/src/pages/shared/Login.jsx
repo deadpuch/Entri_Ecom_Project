@@ -1,11 +1,16 @@
 import React from "react";
 import toast from "react-hot-toast/headless";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
 
 export const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -28,38 +33,62 @@ export const Login = () => {
     <section className="grid grid-cols-2 ">
       <div className="backdrop flex justify-center items-center"></div>
 
-      <form
-        className="w-full h-full flex justify-center "
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex flex-col justify-center items-center w-[20rem]">
-          <div className="flex justify-start flex-col w-full">
-            {/* Mail */}
-            <div className="flex flex-col">
-              <label htmlFor="mail">Mail</label>
-              <input
-                type="text"
-                className="border-2 p-1 rounded-md "
-                id="mail"
-                {...register("Email")}
-              />
-            </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="h-screen w-full flex justify-center items-center">
+          <div>
+            <h1 className="font-bold text-2xl">
+              Hello Admin <br />{" "}
+              <span className="text-[2.5rem]"> Welcome</span>{" "}
+            </h1>
 
-            {/* Password */}
-            <div className="flex flex-col">
-              <label htmlFor="password">password</label>
-              <input
-                type="text"
-                className="border-2 p-1 rounded-md"
-                id="password"
-                {...register("password")}
-              />
+            <div className="w-80 h-80 my-10">
+              <div className="flex flex-col mb-5">
+                <label htmlFor="mail">Mail Id</label>
+                <input
+                  type="text"
+                  className={`border-2 h-10 rounded-full p-2 ${
+                    errors.Email ? "input-error" : ""
+                  }`}
+                  id="mail"
+                  {...register("Email", {
+                    required: "Email Required",
+                  })}
+                />
+                {errors.Email && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors?.Email?.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col mb-2">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className={`border-2 h-10 rounded-full p-2 ${
+                    errors.password ? "input-error" : ""
+                  }`}
+                  id="password"
+                  {...register("password", {
+                    required: "password Required",
+                  })}
+                />
+                {errors.password && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors?.password?.message}
+                  </span>
+                )}
+              </div>
+              <Link to={"/rest-password"}>
+                <h3 className=" underline mb-10 text-blue-500 cursor-pointer">
+                  Forgot Password ?
+                </h3>
+              </Link>
+
+              <button className="btn w-full bg-green-300" type="submit">
+                Login
+              </button>
             </div>
-          </div>
-          <div className="w-full mt-10">
-            <button className="w-full bg-[#FF5906] p-2 px-4 rounded-full text-white font-semibold">
-              Login
-            </button>
           </div>
         </div>
       </form>

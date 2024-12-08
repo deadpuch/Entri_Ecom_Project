@@ -10,6 +10,11 @@ import AddProduct from "../pages/addProduct";
 import { SellerList } from "../pages/SellerList";
 import { EditProduct } from "../pages/EditProduct";
 import { Setting } from "../pages/Setting";
+import { RestPassword } from "../pages/shared/ResetPassword";
+import { AdminProfile } from "../pages/AdminProfile";
+import { SettingLayout } from "../Layout/SettingLayout";
+import { EditProfile } from "../pages/EditProfile";
+import { AccountTerminate } from "../pages/AccountTerminate";
 
 export const Router = () => {
   const params = useParams();
@@ -18,6 +23,7 @@ export const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<Login />} />
+        <Route path="rest-password" element={<RestPassword />} />
 
         <Route element={<ProtectRoutes />}>
           <Route element={<Layout />}>
@@ -27,7 +33,11 @@ export const Router = () => {
             <Route path="user-list" element={<UserList />} />
             <Route path="seller-list" element={<SellerList />} />
             <Route path="edit-product/:id" element={<EditProduct />} />
-            <Route path="setting" element={<Setting/>} />
+            <Route path="setting" element={<SettingLayout/>}>
+              <Route path="admin-profile" element={<AdminProfile/>} />
+              <Route path="edit-profile" element={<EditProfile/>} />
+              <Route path="terminate-account" element={<AccountTerminate/>} />
+            </Route>
           </Route>
         </Route>
       </Routes>
