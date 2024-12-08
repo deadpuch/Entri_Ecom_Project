@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 export const CartItem = ({ data }) => {
   const [count, setCount] = useState(data?.products?.[0]?.quantity);
-  console.log((data, "===data"));
+
 
   return (
     <div className="mt-10 border-b-2 flex">

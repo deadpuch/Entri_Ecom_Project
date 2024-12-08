@@ -10,13 +10,6 @@ export const Cart = () => {
   const navigate = useNavigate();
   const [cartItems, loading] = useFetch("/cart/showItems");
 
-  console.log(cartItems, "====cart");
-  console.log(cartItems?.[0]?.products?.[0], "====Items");
-
-  // const handleCheckout=()=>{
-  //   navigate("/checkout")
-  // }
-
   const handleCheckout = async () => {
     try {
       const stripe = await loadStripe(
@@ -93,8 +86,6 @@ export const Cart = () => {
                   {cartItems?.map((value) => (
                     <CartItem data={value} key={value._id} />
                   ))}
-
-                  {console.log(CartItem, "====item")}
                 </div>
               </div>
               <div>
