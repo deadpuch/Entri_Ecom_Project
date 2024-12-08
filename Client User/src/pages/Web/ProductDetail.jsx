@@ -35,7 +35,7 @@ export const ProductDetail = () => {
   const [count, setCount] = useState(1);
   const [showRateReview, setShowRateReview] = useState(false);
 
-  const [testmonial] = useFetch(`/user/review//product-review/${id}`);
+  const [testmonial] = useFetch(`/user/review/product-review/${id}`);
 
   useEffect(() => {
     // Scroll to the top when the component mounts
