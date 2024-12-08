@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173","http://localhost:5174","https://entri-ecom-adminclient.vercel.app"],
+    origin: ["http://localhost:5173","https://entri-ecom-adminclient.vercel.app","https://entri-ecom-adminclient.vercel.app","https://entri-ecom-project.vercel.app/","https://entri-ecom-project-y3u7.vercel.app/"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
