@@ -62,8 +62,6 @@ export const Product = () => {
                 ))}
               </>
             )}
-
-           
           </div>
         </section>
       </main>

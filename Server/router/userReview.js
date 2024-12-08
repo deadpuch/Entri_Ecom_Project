@@ -9,7 +9,7 @@ const router=express.Router();
 router.post("/create_review/:productId",userAuth,createReview)
 
 router.get("/allreview",userAuth,allReview)
-router.get("/product-review/:productId",userAuth,productReview)
+router.get("/product-review/:productId",productReview)
 
 router.delete("/delete_review/:reviewId",userAuth,deleteReview)
 
