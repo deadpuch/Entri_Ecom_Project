@@ -6,8 +6,10 @@ import { useFetch } from "../../hooks/useFetch";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const [cartItems,loading]=useFetch("")
+  const [cartItems,loading]=useFetch("/cart/showItems")
 
+  console.log(cartItems,"cartItmes=====");
+  
   return (
     <>
       <main className="md:hidden">
@@ -60,7 +62,7 @@ export const Cart = () => {
                 <h1 className="font-semibold text-[2rem]">Bag</h1>
 
                 <div className="scrollbar_change h-[80vh] overflow-y-scroll ">
-                  <CartItem />
+                 {cartItems?.map((value)=>( <CartItem data={value} key={value._id} />))}
                 </div>
               </div>
               <div>
