@@ -10,7 +10,8 @@ export const useFetch = (url) => {
   const fetch = async () => {
     try {
       const response = await instance({
-        url: url
+        url: url,
+        method:"GET"
       });
       setData(response?.data?.data);
       setLoading(false);
@@ -25,5 +26,5 @@ export const useFetch = (url) => {
     fetch();
   }, []);
 
-  return[data,loading,error]
+  return[data,loading,error,setData]
 };

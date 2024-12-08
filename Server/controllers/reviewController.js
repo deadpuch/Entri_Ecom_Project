@@ -54,6 +54,29 @@ export const allReview = async (req, res, next) => {
   }
 };
 
+export const productReview = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+
+    const reviews = await REVIEW.find({productId:productId}).populate(
+      "user_data",
+      "User_name profilePic"
+    );
+
+    if (!reviews.length) {
+      return res
+        .status(404)
+        .json({ message: "No reviews found for this product" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "reivew fetched successfully", data: reviews });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 export const deleteReview = async (req, res, next) => {
   try {
     const { reviewId } = req.params;

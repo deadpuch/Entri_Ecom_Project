@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ProductCard } from "../../components/user-components/ProductCard";
+import { useFetch } from "../../hooks/useFetch";
+import { SkeltonCard } from "../../components/user-components/SkeltonCard";
 
 export const Product = () => {
+  const [items, loading, error] = useFetch("/products/get-allProduct");
+
+  useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <main className="md:hidden">
@@ -31,8 +40,8 @@ export const Product = () => {
         </section>
       </main>
 
-      <main className="hidden md:block">
-        <section className="mt-28 2xl:container 2xl:mx-auto ">
+      <main className="hidden md:block h-screen">
+        <section className="mt-28 2xl:container xl:container lg:container md:container mx-auto ">
           {/* category */}
           <div>
             <ul className="flex gap-10 w-full justify-center mb-16">
@@ -43,15 +52,18 @@ export const Product = () => {
             </ul>
           </div>
 
-          <div className=" 2xl:columns-4 lg:columns-3 md:columns-3 gap-3">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-3">
+            {loading ? (
+              Array.from({ length: items?.length }, () => <SkeltonCard />)
+            ) : (
+              <>
+                {items?.map((value, index) => (
+                  <ProductCard data={value} key={index} />
+                ))}
+              </>
+            )}
+
+           
           </div>
         </section>
       </main>

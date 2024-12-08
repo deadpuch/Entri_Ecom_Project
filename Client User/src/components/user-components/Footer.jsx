@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="hidden md:block ">
       {/* mail listing */}
       <section className="bg-[#F9FCE4]">
-        <div className="2xl:container 2xl:mx-auto grid grid-cols-3 p-4">
+        <div className="2xl:container xl:grid lg:grid md:grid mx-auto grid grid-cols-3 p-4">
           <div>
             <h1 className="font-semibold mb-2">JOIN OUR MAILING LIST</h1>
             <p className="text-sm">
@@ -30,7 +30,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center justify-center gap-5">
             <Instagram />
             <Facebook />
             <Youtube />
@@ -41,7 +41,7 @@ export const Footer = () => {
       {/* Main footer */}
 
       <section className="bg-[#478E6E]">
-        <div className="2xl:container 2xl:mx-auto grid grid-cols-4 p-5  ">
+        <div className="2xl:container 2xl:mx-auto grid grid-cols-4 p-5 items-start ">
           <div>
             <div className="w-[100px] mb-2">
               <img src="/PNG/LOGO .png" alt="" className="w-full block " />
@@ -56,20 +56,22 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="flex justify-center items-center flex-col">
-            <h1>Quick Links</h1>
+          <div className="flex justify-start flex-col ms-10 ">
+            <h1 className="text-lg font-medium text-[#F9FCE4]">Quick Links</h1>
 
-            <ul>
-              <li>nav</li>
-              <li>nav</li>
-              <li>nav</li>
-              <li>nav</li>
+            <ul className="text-white mt-5"> 
+              <li>Home</li>
+              <li>Product</li>
+              <li>About</li>
+              <li>Cart</li>
+              <li>Wishlist</li>
+              <li>Become a Seller</li>
             </ul>
           </div>
 
-          <div className="flex justify-center items-center flex-col">Contact us</div>
+          <div className="text-lg font-medium text-[#F9FCE4]">Contact us</div>
 
-          <div className="flex justify-center items-center flex-col">Email Us</div>
+          <div className="text-lg font-medium text-[#F9FCE4]">Email Us</div>
         </div>
       </section>
     </footer>

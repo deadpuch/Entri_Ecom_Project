@@ -7,11 +7,14 @@ const productSchema = mongoose.Schema(
       required: true,
     },
 
-    productImage: [{
-      type: String,
-      default:
-        "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg",
-    }],
+    productImage: [
+      {
+        type: [String],
+        default: () => [
+          "https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg",
+        ],
+      },
+    ],
 
     Product_Quantity: {
       type: Number,
@@ -31,7 +34,7 @@ const productSchema = mongoose.Schema(
     thumbnail: {
       type: String,
       default:
-        "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg",
+        "https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg",
     },
 
     productDescription: {
@@ -42,24 +45,22 @@ const productSchema = mongoose.Schema(
       type: String,
     },
 
-    admin_data:{
+    admin_data: {
       type: mongoose.Types.ObjectId,
-      ref: "admin"
+      ref: "admin",
     },
 
-    seller_data:{
+    seller_data: {
       type: mongoose.Types.ObjectId,
-      ref: "salesusers"
+      ref: "salesusers",
     },
 
-    review: [{ type: mongoose.Types.ObjectId, ref: "review" }]
+    review: [{ type: mongoose.Types.ObjectId, ref: "review" }],
   },
 
   {
     timestamps: true,
   }
 );
-
-
 
 export const PRODUCT = mongoose.model("products", productSchema);

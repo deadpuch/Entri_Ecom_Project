@@ -119,3 +119,18 @@ section > ul > .active {
   grid-template-columns: 2fr 1fr;
   gap: 1rem;
 }
+
+.LoginBg {
+  background-image: url("/IMG/login.png");
+  background-size: cover;
+}
+
+.signup_img {
+  background-image: url("/IMG/signup.jpg");
+  background-size: cover;
+}
+
+.password_bg {
+  background-image: url("/IMG/rest_password.webp");
+  background-size: cover;
+}

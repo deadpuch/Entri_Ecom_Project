@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Top } from "../../components/user-components/Top";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Adcarosal } from "../../components/user-components/Adcarosal";
 import { LatestProductCard } from "../../components/user-components/LatestProductCard";
 import { axiosInstance } from "../../config/axiosInstance";
@@ -10,7 +10,13 @@ import { Footer } from "../../components/user-components/Footer";
 import { Testimonial } from "../../components/user-components/Testimonial";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const [Item, loading, error] = useFetch("/products/latestproducts");
+
+  const handleProductNavigate = () => {
+    navigate("/products");
+  };
 
   return (
     <>
@@ -111,7 +117,7 @@ export const Home = () => {
               className="w-full h-full block object-cover"
               alt=""
             />
-            <div className=" flex flex-col  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-20">
+            <div className=" flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-20">
               <h1 className="flex text-center justify-center font-outFit font-bold text-[3rem] text-white">
                 Lorem, ipsum dolor sit amet{" "}
               </h1>
@@ -121,6 +127,19 @@ export const Home = () => {
                 atque rerum repellat. Repellat quis doloremque fugit quod odit
                 adipisci, harum eaque veritatis voluptate?
               </p>
+              <div className="flex gap-5">
+                <button className="btn btn-outline w-32 mt-10 border-white text-white ">
+                  {" "}
+                  Contact Us
+                </button>
+                <button
+                  className="btn w-32 mt-10 "
+                  onClick={handleProductNavigate}
+                >
+                  {" "}
+                  Product
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -217,9 +236,10 @@ export const Home = () => {
             </h1>
 
             <p className="text-center mx-5 px-10">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis est <br />
-              fuga tempore vero quisquam,quos quia velit   officiis voluptatem <br />
-              
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis est{" "}
+              <br />
+              fuga tempore vero quisquam,quos quia velit officiis voluptatem{" "}
+              <br />
             </p>
           </div>
           <div className=" 2xl:container  2xl:mx-auto items-center h-full w-full gap-4  grid grid-cols-3">

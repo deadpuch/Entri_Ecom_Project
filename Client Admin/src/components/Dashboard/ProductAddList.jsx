@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/userFetch";
 import { instance } from "../../config/AxiosInstance";
 import toast from "react-hot-toast/headless";
+import { NavLink, useParams } from "react-router-dom";
 
-export const ProductAddList = ({ item }) => {
+export const ProductAddList = ({ item, setData }) => {
   const [isSelected, setIsSelected] = useState(false);
 
-console.log(item,"===item");
-
+  console.log(item, "===item");
 
   const handleCheckboxChange = () => {
     setIsSelected(!isSelected);
@@ -20,14 +20,16 @@ console.log(item,"===item");
         url: `/admin/product/product-delete/${item?._id}`,
         method: "DELETE",
       });
+      setData((prev) => prev.filter((product) => product._id !== item?._id));
+
+      console.log("test toast working");
+
       toast.success("Product deleted succesfully");
     } catch (error) {
-
-      toast.error("Failed to delete product")
+      toast.error("Failed to delete product");
       console.log(error);
     }
   };
-
 
   return (
     <div
@@ -66,14 +68,25 @@ console.log(item,"===item");
       <div className="flex justify-center">{item?.unit}</div>
 
       {/* Count */}
-      <div className="flex justify-center"> {item.review && Array.isArray(item.review) && item.review.length}</div>
+      <div className="flex justify-center">
+        {item &&
+          item.review &&
+          Array.isArray(item.review) &&
+          item.review.length}
+      </div>
 
       {/* Icons */}
       <div className="flex justify-center gap-5">
-        <Pencil color="#006eff" className="h-[1.2rem] w-[1.2rem]" />
+        <NavLink to={`/edit-product/${item?._id}`}>
+          <Pencil
+            color="#006eff"
+            className="h-[1.2rem] w-[1.2rem] cursor-pointer"
+          />
+        </NavLink>
+
         <Trash2
           color="#fe0b0b"
-          className="h-[1.2rem] w-[1.2rem]"
+          className="h-[1.2rem] w-[1.2rem] cursor-pointer"
           onClick={handelDelete}
         />
       </div>

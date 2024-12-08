@@ -1,6 +1,6 @@
 import express from "express";
 import { userAuth } from "../middleware/userAuth.js";
-import { allReview, createReview, deleteReview} from "../controllers/reviewController.js";
+import { allReview, createReview, deleteReview, productReview} from "../controllers/reviewController.js";
 
 const router=express.Router();
 
@@ -9,6 +9,7 @@ const router=express.Router();
 router.post("/create_review/:productId",userAuth,createReview)
 
 router.get("/allreview",userAuth,allReview)
+router.get("/product-review/:productId",userAuth,productReview)
 
 router.delete("/delete_review/:reviewId",userAuth,deleteReview)
 

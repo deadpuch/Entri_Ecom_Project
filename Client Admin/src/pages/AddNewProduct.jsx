@@ -9,7 +9,8 @@ export const AddNewProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue, // Used for setting form values programmatically
+    setValue,
+    reset, // Used for setting form values programmatically
   } = useForm();
 
   const [file, setFile] = useState();
@@ -56,7 +57,7 @@ export const AddNewProduct = () => {
       formData.append("unit", data.unit);
       formData.append("price", data.price);
       formData.append("productDescription", data.productDescription);
-      formData.append("thumbnail", data.thumbnail); // Use the file from form
+      data.thumbnail && formData.append("thumbnail", data.thumbnail); // Use the file from form
       if (data.itemImage) {
         Array.from(data.itemImage).forEach((file) => {
           formData.append("itemImage", file); // Append multiple product images
@@ -76,6 +77,12 @@ export const AddNewProduct = () => {
       console.log(error, "===error");
       toast.error("Error while creating product");
     }
+  };
+
+  const handleClear = () => {
+    setFile(null); // Clear single image
+    setMultiFile([]); // Clear multiple images
+    reset(); // Reset react-hook-form fields
   };
 
   return (
@@ -301,7 +308,9 @@ export const AddNewProduct = () => {
               >
                 Save
               </button>
-              <button className="btn btn-outline">Clear</button>
+              <div className="btn btn-outline" onClick={handleClear}>
+                Clear
+              </div>
             </div>
           </div>
         </div>

@@ -36,7 +36,7 @@ const salesModel=mongoose.Schema({
     
       profilePic:{
         type:String,
-        default:"https://www.vecteezy.com/vector-art/20765399-default-profile-account-unknown-icon-black-silhouette"
+        default:"https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554206/default_profile_hdwxs6.jpg"
       },
 
       Active:{

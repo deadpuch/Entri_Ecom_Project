@@ -1,9 +1,12 @@
-import React from 'react'
-import { RouterPath } from './routers/router'
-
+import React from "react";
+import { RouterPath } from "./routers/router";
+import { Toaster } from "react-hot-toast";
 
 export const App = () => {
   return (
-    <RouterPath/>
-  )
-}
+    <>
+      <Toaster position="top-right"/>
+      <RouterPath />
+    </>
+  );
+};

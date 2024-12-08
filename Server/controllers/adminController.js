@@ -144,7 +144,6 @@ export const adminLogout = async (req, res, next) => {
       sameSite: "none",
       secure: true,
       httpOnly: true,
-      domain: "entri-ecom-adminclient.vercel.app",
     });
 
     res.json({ message: "admin logout successfully" });
@@ -180,7 +179,7 @@ export const adminDeleteAccount = async (req, res, next) => {
 
 export const getAlluser = async (req, res, next) => {
   try {
-    const allUser = await User.find();
+    const allUser = await User.find().populate("Address");
 
     res.json({ message: "all user data fetched", data: allUser });
   } catch (error) {

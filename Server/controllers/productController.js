@@ -14,6 +14,8 @@ export const addProduct = async (req, res, next) => {
       productDescription,
       category,
       review,
+      productImage,
+      thumbnail
     } = req.body;
 
     // Validate required fields
@@ -47,11 +49,11 @@ export const addProduct = async (req, res, next) => {
     // Create the new product object
     const newProduct = new PRODUCT({
       productName,
-      productImage: updateFields.productImage || [], // Default to an empty array if no images
+      productImage: updateFields.productImage, // Default to an empty array if no images
       Product_Quantity,
       unit,
       price,
-      thumbnail: updateFields.thumbnail || "", // Default to an empty string if no thumbnail
+      thumbnail: updateFields.thumbnail , // Default to an empty string if no thumbnail
       productDescription,
       category,
       admin_data: req.admin?.id || null, // Ensure admin data is included
@@ -94,7 +96,7 @@ export const getProductDetails = async (req, res, next) => {
     const { productId } = req.params;
 
     const adminProduct = await PRODUCT.findById(productId).populate(
-      "user_data",
+      "admin_data",
       "-password -Email -__v -createdAt -updatedAt"
     );
 

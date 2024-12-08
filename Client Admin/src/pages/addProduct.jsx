@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ProductAddList } from "../components/Dashboard/ProductAddList";
 import { useNavigate } from "react-router";
 import { useFetch } from "../hooks/userFetch";
@@ -14,9 +14,7 @@ const AddProduct = () => {
     product_api: "/admin/product/get-product",
   };
 
-  const [data, loading, error] = useFetch(user.product_api);
-
-  console.log(data, "===item");
+  const [data, loading, error,setData,] = useFetch(user.product_api);
 
   return (
     <section>
@@ -52,7 +50,11 @@ const AddProduct = () => {
           {/* Check for loading and error states */}
           {data && data.length > 0
             ? data.map((value) => (
-                <ProductAddList key={value._id} item={value} />
+                <ProductAddList
+                  key={value._id}
+                  item={value}
+                  setData={setData}
+                />
               ))
             : ""}
         </div>

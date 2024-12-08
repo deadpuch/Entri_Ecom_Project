@@ -13,10 +13,12 @@ export const adminSlice = createSlice({
       (state.isAdminAuth = true), (state.adminData = action.payload);
     },
     clearAdminData: (state) => {
-      (state.isUserAuth = false), (state.userData = {});
+      (state.isAdminAuth = false), (state.adminData = {});
     },
   },
 });
+
+
 
 // Action creators are generated for each case reducer function
 export const { saveAdminData, clearAdminData } = adminSlice.actions;

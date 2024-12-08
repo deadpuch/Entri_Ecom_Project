@@ -65,7 +65,7 @@ export const userLogin = async (req, res, next) => {
       return res.status(400).json({ message: "user not authenticated" });
     }
 
-    const activeUser = await User.findOne({ Email,Active: true });
+    const activeUser = await User.findOne({ Email, Active: true });
 
     if (!activeUser) {
       return res.status(403).json({ message: "your account has been banded" });
@@ -83,8 +83,8 @@ export const userLogin = async (req, res, next) => {
 
 export const userResetPassword = async (req, res, next) => {
   try {
-    const { mail, updatedPassword } = req.body;
-    const finduser = await User.findOne({ mail });
+    const { Email, updatedPassword } = req.body;
+    const finduser = await User.findOne({ Email });
 
     if (!finduser) {
       return res.json({ message: "user not authenticated" });
@@ -92,7 +92,10 @@ export const userResetPassword = async (req, res, next) => {
 
     const passwordHash = bcrypt.hashSync(updatedPassword, 10);
 
-    await User.updateOne({ mail: mail }, { $set: { password: passwordHash } });
+    await User.updateOne(
+      { Email: Email },
+      { $set: { password: passwordHash } }
+    );
 
     res.json({ message: "password changed succefully" });
   } catch (error) {
@@ -106,7 +109,9 @@ export const userProfile = async (req, res, next) => {
   try {
     const userId = req.user.id;
 
-    const userProfile = await User.findById(userId).select("-password");
+    const userProfile = await User.findById(userId)
+      .populate("Address")
+      .select("-password");
 
     res.json({ message: "profile fetch successfully", data: userProfile });
   } catch (error) {
@@ -143,9 +148,9 @@ export const userProfileUpdate = async (req, res, next) => {
 
     res.json({ message: "profile updated success" });
   } catch (error) {
-    res
-      .status(error.statusCode || 500)
-      .json({ message: error.message || "internal server error" });
+    console.log(error, "===error");
+
+    res.status(error.statusCode || 500).json({ message: "Mail aleardy exist" });
   }
 };
 

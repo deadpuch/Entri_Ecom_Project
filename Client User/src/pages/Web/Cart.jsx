@@ -2,10 +2,11 @@ import { ChevronLeft, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/user-components/CartItem";
-
+import { useFetch } from "../../hooks/useFetch";
 
 export const Cart = () => {
   const navigate = useNavigate();
+  const [cartItems,loading]=useFetch("")
 
   return (
     <>
@@ -59,8 +60,6 @@ export const Cart = () => {
                 <h1 className="font-semibold text-[2rem]">Bag</h1>
 
                 <div className="scrollbar_change h-[80vh] overflow-y-scroll ">
-                  <CartItem />
-                  <CartItem />
                   <CartItem />
                 </div>
               </div>

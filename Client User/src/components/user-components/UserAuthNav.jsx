@@ -3,9 +3,12 @@ import { Heart, Search, ShoppingBag } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { DropDown } from "./DropDown";
 import gsap from "gsap";
+import { useFetch } from "../../hooks/useFetch";
 
 export const UserAuthNav = () => {
   const animation = useRef(null); // Ref for the dropdown element
+
+  const [userData]=useFetch("/user/profile")
 
   const handleDropDown = () => {
     const dropdown = animation.current;
@@ -33,6 +36,7 @@ export const UserAuthNav = () => {
     }
   };
 
+  
   return (
     <>
       <nav className="md:hidden w-screen fixed bottom-0 h-[100svh]drop-shadow-md">
@@ -131,7 +135,7 @@ export const UserAuthNav = () => {
         </div>
       </nav>
 
-      <header className="hidden md:block w-full fixed z-50 top-0 mt-5">
+      <header className="hidden md:block w-full fixed z-[100] top-0 mt-5">
         <nav className="container h-auto p-2 px-4 border-white border-2 mx-auto rounded-full bg-white bg-opacity-60 backdrop-blur-md items-center grid grid-cols-3">
           <div>
             <img src="/PNG/LOGO .png" alt="Logo" className="h-[45px]" />
@@ -163,17 +167,21 @@ export const UserAuthNav = () => {
           </ul>
 
           <div className="flex gap-4 w-full items-center justify-end">
-            <Search />
+            <NavLink to="search">
+              <div>
+                <Search />
+              </div>
+            </NavLink>
             <Heart />
 
             <NavLink to="cart">
               <ShoppingBag />
             </NavLink>
             <div
-              onto={handleDropDown}
-              className="h-[40px] w-[40px] rounded-full bg-black cursor-pointer"
+              onClick={handleDropDown}
+              className="h-[40px] w-[40px] rounded-full bg-black cursor-pointer overflow-hidden"
             >
-              {/* <img src="" alt="User Avatar" /> */}
+              <img src={userData?.profilePic} alt={userData?.User_name} className="w-full h-full block object-cover" />
             </div>
 
             <div
