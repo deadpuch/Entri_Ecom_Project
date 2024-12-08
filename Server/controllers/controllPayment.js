@@ -7,7 +7,7 @@ export const controllPayment= async(req,res,next)=>{
    try {
         const { products } = req.body;
 
-        console.log("products=====",products);
+       
         
         
         const lineItems = products.map((product) => ({
@@ -22,7 +22,7 @@ export const controllPayment= async(req,res,next)=>{
             quantity:product?.quantity ,
         }));
         
-        console.log("lineItems=====",lineItems);
+      
         
 
         const session = await stripe.checkout.sessions.create({

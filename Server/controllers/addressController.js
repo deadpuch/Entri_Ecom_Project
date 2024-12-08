@@ -3,7 +3,7 @@ import { ADDRESS } from "../models/address.js";
 
 export const addAddress = async (req, res, next) => {
   try {
-    console.log(req.body, "====body");
+   
 
     const {
       Address_line_1,
