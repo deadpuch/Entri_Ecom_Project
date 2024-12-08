@@ -33,7 +33,11 @@ export const salesSignup = async (req, res, next) => {
     await newsales.save();
 
     const token = generateToken(newsales, "salesUser");
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      sameSite: "none",
+     secure: true,
+     httpOnly: true,
+   });
 
     res.json({ message: "seller user created successfully" });
   } catch (error) {
@@ -69,7 +73,11 @@ export const salesLogin = async (req, res, next) => {
     }
 
     const token = generateToken(checkSales, "salesUser");
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      sameSite: "none",
+     secure: true,
+     httpOnly: true,
+   });
 
     res.json({ message: "seller user Login successfull" });
   } catch (error) {
@@ -147,7 +155,11 @@ export const salesResetPassword = async (req, res, next) => {
 
 export const salesLogout = async (req, res, next) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token",{
+      sameSite: "none",
+     secure: true,
+     httpOnly: true,
+   });
 
     res.json({ message: "seller logout successfully" });
   } catch (error) {

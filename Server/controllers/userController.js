@@ -34,7 +34,11 @@ export const userSignup = async (req, res, next) => {
     await newUser.save();
 
     const token = generateToken(newUser, "user");
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "user created successfully" });
   } catch (error) {
@@ -71,7 +75,11 @@ export const userLogin = async (req, res, next) => {
       return res.status(403).json({ message: "your account has been banded" });
     }
     const token = generateToken(checkUser, "user");
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "user Login successfull" });
   } catch (error) {
@@ -123,7 +131,11 @@ export const userProfile = async (req, res, next) => {
 
 export const userLogout = async (req, res, next) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "user logout successfully" });
   } catch (error) {
