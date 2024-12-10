@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Nav } from "../components/user-components/Nav";
-import { UserAuthNav } from "../components/user-components/UserAuthNav";
-import { Footer } from "../components/user-components/Footer";
+import { NotLoginNav } from "../components/user-components/Web/NotLoginNav";
+import { UserAuthNav } from "../components/user-components/Web/UserAuthNav";
+import { Footer } from "../components/user-components/Web/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearuserData, saveuserData } from "../Redux/features/userSlice";
 import { axiosInstance } from "../config/axiosInstance";
@@ -31,10 +31,10 @@ export const UserLayout = () => {
 
   return (
     <>
-      {isUserAuth ? <UserAuthNav /> : <Nav />}
-      <div>
-        <Outlet />
-      </div>
+      {isUserAuth ? <UserAuthNav /> : <NotLoginNav />}
+
+      <Outlet />
+
       <Footer />
     </>
   );

@@ -9,7 +9,12 @@ export default {
       outFit: ["Outfit", "sans-serif"],
       sans: ["Poppins", "serif"],
     },
-    extend: {},
+    extend: {
+      screens:{
+        'xs':'523px',
+        'xxs':'375px'
+      }
+    },
   },
   plugins: [daisyui],
 

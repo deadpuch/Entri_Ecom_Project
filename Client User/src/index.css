@@ -8,20 +8,12 @@
   position: relative;
   box-sizing: border-box;
 }
-/* html {
-  scroll-behavior: smooth;
-} */
-nav > div > a.active {
-  background-color: black;
-  height: auto;
-  width: auto;
-}
 
-section > ul > .active {
-  background-color: rgb(0, 0, 0);
-  padding: 0.3rem;
-  padding-inline: 1rem;
-  color: white;
+ .active {
+  background-color: rgb(37, 37, 37);
+  padding: 0.4rem;
+
+  
   border-radius: 20px;
 }
 
@@ -31,6 +23,14 @@ section > ul > .active {
   padding: 0.4rem;
   padding-inline: 1rem;
   color: white;
+}
+
+.web-NavCart-active{
+  background-color: black;
+  border-radius: 5rem;
+  padding: 0.4rem;
+  color: white;
+  
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -133,4 +133,13 @@ section > ul > .active {
 .password_bg {
   background-image: url("/IMG/rest_password.webp");
   background-size: cover;
+}
+
+input:focus-visible{
+  outline: none;
+}
+
+.apigridChange>section{
+  display: flex;
+  justify-content: center;
 }

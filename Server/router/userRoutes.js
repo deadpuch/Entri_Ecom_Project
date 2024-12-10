@@ -14,6 +14,7 @@ import { getProduct } from "../controllers/productController.js";
 import { upload } from "../middleware/multer.js";
 import { userReview } from "./userReview.js"
 import { addAddress, deleteAddress, editAddress, getAddress} from "../controllers/addressController.js";
+import { addProductToWishlist, getWishlist, removeProductFromWishlist } from "../controllers/wishlistController.js";
 
 const router = express.Router();
 
@@ -35,6 +36,10 @@ router.delete("/delete-address",userAuth,deleteAddress)
 router.get("/check-user", userAuth, checkUser);
 
 router.get("/allProduct", userAuth, getProduct);
+
+router.post('/wishlist/add', userAuth, addProductToWishlist);
+router.delete('/wishlist/delete', userAuth, removeProductFromWishlist);
+router.get('/wishlist/get', userAuth, getWishlist);
 
 router.use("/review",userReview);
 

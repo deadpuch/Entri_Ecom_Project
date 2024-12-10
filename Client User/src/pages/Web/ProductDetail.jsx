@@ -10,13 +10,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-import { ProductImgCard } from "../../components/user-components/ProductImgCard";
-import { Testimonial } from "../../components/user-components/Testimonial";
+import { ProductImgCard } from "../../components/user-components/Web/ProductImgCard";
+import { Testimonial } from "../../components/user-components/Web/Testimonial";
 import { SingleProductSkeleton } from "./SingleProductSkeleton";
 import { axiosInstance } from "../../config/axiosInstance";
 import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { RateReview } from "../../components/user-components/RateReview";
+import { RateReview } from "../../components/user-components/Web/RateReview";
 
 export const ProductDetail = () => {
   const { id } = useParams();
@@ -24,18 +23,11 @@ export const ProductDetail = () => {
   const [singleProduct, loading, error] = useFetch(
     `/products/product-details/${id}`
   );
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const [testmonial] = useFetch(`/user/review/product-review/${id}`);
 
   const [mainImage, setMainImage] = useState(singleProduct?.productImage[0]);
   const [count, setCount] = useState(1);
   const [showRateReview, setShowRateReview] = useState(false);
-
-  const [testmonial] = useFetch(`/user/review/product-review/${id}`);
 
   useEffect(() => {
     // Scroll to the top when the component mounts
@@ -46,18 +38,21 @@ export const ProductDetail = () => {
     }
   }, [singleProduct]);
 
-  const onSubmit = async (data) => {
+  const handleAdd = async () => {
     try {
       const response = await axiosInstance({
         url: `/cart/addItems/${id}`,
         method: "POST",
-        data,
+        data: {
+          quantity: parseInt(count),
+          price: singleProduct?.price,
+        },
       });
 
       toast.success("product added to cart");
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      navigate("/login");
+      // navigate("/login");
     }
   };
 
@@ -71,9 +66,9 @@ export const ProductDetail = () => {
 
   return (
     <>
-      <main className="relative md:hidden">
+      <main className="relative h-auto pt-6 pb-52 md:hidden">
         {/* Top */}
-        <div className=" flex fixed top-0 bg-white w-full justify-between drop-shadow-sm px-4 p-2 z-20">
+        <div className="flex top-0 w-full justify-between fixed z-10 bg-white py-4 px-4">
           <div className="flex">
             <ChevronLeft onClick={() => navigate("/")} />
             <h2 className="ms-3">{singleProduct?.productName}</h2>
@@ -101,9 +96,9 @@ export const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="w-full h-[60vh] ">
-              <h1 className="mt-4">Description</h1>
-              <p className="mt-2 text-sm ">
+            <div className="w-full ">
+              <h1 className="mt-4 text-gray-700 font-semibold">Description</h1>
+              <p className="mt-2 text-sm  text-gray-500">
                 {" "}
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
                 velit, neque maxime omnis tenetur modi optio placeat ad quaerat
@@ -115,14 +110,32 @@ export const ProductDetail = () => {
           </div>
         </section>
 
-        <div className="fixed bottom-0 mb-10 w-full px-4  h-auto pt-8 bg-[#f4f4f4] rounded-t-3xl">
+        <div className="fixed bottom-0 pb-10 w-full px-4  h-auto pt-8 bg-[#f4f4f4] rounded-t-3xl">
           <div>
-            <div className="flex justify-between mb-4 ">
-              <div>Quantity</div>
-              <div>{`Total : ₹ ${singleProduct?.price}`}</div>
+            <div className="flex justify-between items-center mb-4 ">
+              <div className="w-[8rem] flex justify-between px-2 py-2 rounded-full border-2   ">
+                <div
+                  onClick={() => count > 1 && setCount(count - 1)}
+                  className=" cursor-pointer"
+                >
+                  <Minus />
+                </div>
+
+                <span>{count}</span>
+                <div
+                  onClick={() => setCount(count + 1)}
+                  className=" cursor-pointer"
+                >
+                  <Plus />
+                </div>
+              </div>
+              <div className="font-semibold font-outFit text-[1.2rem]">{`Total : ₹ ${singleProduct?.price}`}</div>
             </div>
 
-            <button className="w-[100%] btn bg-green-300 mb-4">
+            <button
+              className="w-[100%] btn bg-green-300 mb-6"
+              onClick={handleAdd}
+            >
               Add to Cart
             </button>
           </div>
@@ -176,7 +189,7 @@ export const ProductDetail = () => {
                   </h1>
                   <div className="flex w-20">
                     {Array.from({ length: 5 }, () => (
-                      <Star fill="#111" strokeWidth={0} />
+                      <Star fill="#111" />
                     ))}
                   </div>
 
@@ -205,26 +218,18 @@ export const ProductDetail = () => {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <input
+                {/* <input
                     type="hidden"
                     value={singleProduct?.price || 0}
                     {...register("price")}
-                  />
-                  <input
-                    type="hidden"
-                    value={count}
-                    {...register("quantity")}
-                  />
-                  <div className="my-4">
-                    <button className="btn w-full mb-4" type="submit">
-                      Add to Bag
-                    </button>
-                    <div className="btn bg-red-400 w-full">
-                      Add to Favourate
-                    </div>
-                  </div>
-                </form>
+                  /> */}
+
+                <div className="my-4">
+                  <button className="btn w-full mb-4" onClick={handleAdd}>
+                    Add to Bag
+                  </button>
+                  <div className="btn bg-red-400 w-full">Add to Favourate</div>
+                </div>
               </div>
             </>
           )}

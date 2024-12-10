@@ -252,7 +252,7 @@ export const addAdvImage = async (req, res, next) => {
     //   return res.json({ message: "Add Image" });
     // }
 
-    console.log(req.files);
+ 
 
     const arrayImage = req.files.advImages;
     const itemImg = arrayImage.map((file) =>

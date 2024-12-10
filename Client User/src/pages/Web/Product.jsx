@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
-import { ProductCard } from "../../components/user-components/ProductCard";
+import { ProductCard } from "../../components/user-components/Web/ProductCard";
 import { useFetch } from "../../hooks/useFetch";
-import { SkeltonCard } from "../../components/user-components/SkeltonCard";
+import { SkeltonCard } from "../../components/user-components/Web/SkeltonCard";
+import { ChevronLeft, Link, Search, SlidersHorizontal } from "lucide-react";
+import { MobileProductCard } from "../../components/user-components/Mobile Components/MobileProductCard";
+import { CateogaryList } from "../../components/user-components/Mobile Components/CateogaryList";
+import { useNavigate } from "react-router-dom";
 
 export const Product = () => {
-  const [items, loading, error] = useFetch("/products/get-allProduct");
+  const [items, loading] = useFetch("/products/get-allProduct");
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate("/");
+  };
+
 
   useEffect(() => {
     // Scroll to the top when the component mounts
@@ -14,45 +23,44 @@ export const Product = () => {
   return (
     <>
       <main className="md:hidden">
-        <section>
-          {/* top */}
-
-          <div className="flex">
-            <input type="text" placeholder="search" className="border-2" />
-            <div>filter</div>
+        <div className="flex w-full justify-between fixed z-10 bg-white py-4 px-4">
+          <div onClick={handleBack}>
+            <ChevronLeft color="#000000" />
           </div>
-        </section>
-
-        {/* products List */}
-
-        <section>
-          <div>wishlist</div>
-
-          <div className="mt-5 flex-wrap flex">
-            <div className="h-[200px] w-[150px] bg-slate-500"></div>
+          <div className="flex gap-5">
+            <Search color="#000000" />
+            <SlidersHorizontal color="#000000" />
+          </div>
+        </div>
+        <section className="h-auto pt-10 pb-16 mx-4 ">
+          <div className="w-full flex justify-center my-5">
+            <div className="cursor-pointer">
+              <CateogaryList />
+            </div>
           </div>
 
-          <h1>Name of the Products</h1>
-
-          <div>
-            <button>Add to cart </button>
+          <div className="apigridChange grid grid-cols-1 xs:grid-cols-3 xxs:grid-cols-2 gap-5">
+            {loading ? (
+              Array.from({ length: items?.length }, () => <SkeltonCard />)
+            ) : (
+              <>
+                {items?.map((value, index) => (
+                  <MobileProductCard data={value} key={index} />
+                ))}
+              </>
+            )}
           </div>
         </section>
       </main>
 
-      <main className="hidden md:block h-screen">
-        <section className="mt-28 2xl:container xl:container lg:container md:container mx-auto ">
+      <main className="hidden md:block h-screen pt-20">
+        <section className="md:container mx-auto ">
           {/* category */}
-          <div>
-            <ul className="flex gap-10 w-full justify-center mb-16">
-              <li>Fruits</li>
-              <li>Veg</li>
-              <li>Non veg</li>
-              <li>flex</li>
-            </ul>
+          <div className="my-10">
+            <CateogaryList />
           </div>
 
-          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-3">
+          <div className=" grid grid-cols-3 xl:grid-cols-4 gap-3">
             {loading ? (
               Array.from({ length: items?.length }, () => <SkeltonCard />)
             ) : (

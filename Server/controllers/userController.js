@@ -160,8 +160,6 @@ export const userProfileUpdate = async (req, res, next) => {
 
     res.json({ message: "profile updated success" });
   } catch (error) {
-    console.log(error, "===error");
-
     res.status(error.statusCode || 500).json({ message: "Mail aleardy exist" });
   }
 };

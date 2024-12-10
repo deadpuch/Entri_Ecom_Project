@@ -3,14 +3,14 @@ import mongoose from "mongoose";
 const cartSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users', 
+    ref: "users",
     required: true,
   },
   products: [
     {
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'products', 
+        ref: "products",
         required: true,
       },
       quantity: {
@@ -30,11 +30,10 @@ const cartSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-
 });
 
 // Pre-save middleware to update the total price
-cartSchema.pre('save', function (next) {
+cartSchema.pre("save", function (next) {
   this.totalPrice = this.products.reduce(
     (sum, product) => sum + product.quantity * product.price,
     0
@@ -42,5 +41,5 @@ cartSchema.pre('save', function (next) {
   next();
 });
 
-export const Cart = mongoose.model('cart', cartSchema);
 
+export const Cart = mongoose.model("cart", cartSchema);

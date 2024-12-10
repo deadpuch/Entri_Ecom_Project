@@ -1,13 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 
 const addressSchema = mongoose.Schema({
-  Address_line_1: {
+  Address: {
     type: String,
     required: true,
-  },
-
-  Address_line_2: {
-    type: String,
   },
 
   City: {
@@ -34,9 +30,14 @@ const addressSchema = mongoose.Schema({
     required: true,
   },
 
+  Name: {
+    type: String,
+    required: true,
+  },
+
   user_data: {
     type: mongoose.Types.ObjectId,
-    ref: "user",
+    ref: "users",
   },
 });
 

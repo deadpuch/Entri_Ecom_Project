@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
-import { Camera } from "lucide-react";
-import { axiosInstance } from "../../config/axiosInstance";
+import { Camera, ChevronLeft } from "lucide-react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { axiosInstance } from "../../config/axiosInstance";
+
 
 export const EditProfile = () => {
   const {
@@ -23,8 +25,6 @@ export const EditProfile = () => {
   }, [data]);
 
   const onSubmit = async (data) => {
-   
-
     try {
       const formData = new FormData();
       formData.append("user_name", data.user_name);
@@ -52,11 +52,19 @@ export const EditProfile = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full h-full justify-center flex-col"
+      className="flex w-full h-screen justify-center  flex-col mx-4 "
     >
+      <div className="flex top-0 w-full justify-between fixed z-10 bg-white py-4 ">
+        <div className="flex items-center">
+          <Link to="/user-profile/my-profile">
+            <ChevronLeft />
+          </Link>
+          <h2 className="ms-3 text-xl">My Profile</h2>
+        </div>
+      </div>
       <h1 className="font-semibold text-xl mb-5">Edit Profile</h1>
 
-      <div className="h-auto me-5 rounded-2xl bg-[#f4f4f8]  p-5 px-10">
+      <div className="h-auto md:ms-5 rounded-2xl bg-[#f4f4f8]  p-5 px-2 md:px-10">
         <div>
           <div className="h-20 w-20 bg-black rounded-full relative overflow-hidden">
             <div className="h-20 w-20 bg-black rounded-full opacity-45 absolute z-10" />
@@ -88,32 +96,24 @@ export const EditProfile = () => {
 
           <div className="flex flex-wrap mt-5 justify-between ">
             {/* user Name */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="user_name"
-                className="text-[0.95rem] text-gray-400"
-              >
-                User Name
-              </label>
+            <div className="flex flex-col w-full">
               <input
                 type="text"
                 name=""
                 id="user_name"
-                className=" h-10 p-2 rounded-xl border-gray-300 border-[1px] w-[20rem] "
+                placeholder="Name"
+                className=" h-10 p-2  bg-transparent  border-b-[1px]  md:w-[20rem] "
                 {...register("User_name")}
               />
             </div>
 
             {/*Email  */}
-            <div className="flex flex-col">
-              <label htmlFor="mail" className="text-[0.95rem] text-gray-400">
-                Email
-              </label>
+            <div className="flex w-full flex-col my-5">
               <input
                 type="text"
                 name=""
                 id="mail"
-                className=" h-10 p-2 rounded-xl border-gray-300 border-[1px] w-[20rem] "
+                className=" h-10 p-2  bg-transparent  border-b-[1px] w-full md:w-[20rem]  "
                 {...register("Email")}
               />
             </div>
@@ -121,7 +121,9 @@ export const EditProfile = () => {
         </div>
 
         <div className="flex w-full justify-end">
-          <button className="btn bg-blue-500 my-10 text-white">Save</button>
+          <button className="btn bg-blue-500 my-10 text-white w-full md:w-">
+            Save
+          </button>
         </div>
       </div>
     </form>

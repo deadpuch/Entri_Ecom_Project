@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Top } from "../../components/user-components/Top";
+import { Top } from "../../components/user-components/Web/Top";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Adcarosal } from "../../components/user-components/Adcarosal";
-import { LatestProductCard } from "../../components/user-components/LatestProductCard";
+import { Adcarosal } from "../../components/user-components/Web/Adcarosal";
+import { LatestProductCard } from "../../components/user-components/Web/LatestProductCard";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useFetch } from "../../hooks/useFetch";
-import { ProductCard } from "../../components/user-components/ProductCard";
-import { Footer } from "../../components/user-components/Footer";
-import { Testimonial } from "../../components/user-components/Testimonial";
-import { LatestCard } from "../../components/user-components/LatestCard";
-import { TesmonialFront } from "../../components/user-components/TesmonialFront";
+import { ProductCard } from "../../components/user-components/Web/ProductCard";
+import { Footer } from "../../components/user-components/Web/Footer";
+import { Testimonial } from "../../components/user-components/Web/Testimonial";
+import { LatestCard } from "../../components/user-components/Web/LatestCard";
+import { TesmonialFront } from "../../components/user-components/Web/TesmonialFront";
+import { Search } from "lucide-react";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -22,34 +23,23 @@ export const Home = () => {
 
   return (
     <>
-      <main className="md:hidden">
+      <main className="md:hidden h-auto pb-16">
         <Top />
 
         {/* search */}
-        <section className="mt-20 mx-4 flex justify-between">
-          <div>
-            <input
-              type="text"
-              className="border-2 rounded-lg p-1 w-[75vw]"
-              placeholder="search"
-            />
-          </div>
-
-          <div className="bg-black p-1 w-9  flex items-center justify-center rounded-lg">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11 5C7.68629 5 5 7.68629 5 11C5 14.3137 7.68629 17 11 17C14.3137 17 17 14.3137 17 11C17 7.68629 14.3137 5 11 5ZM3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11C19 12.8487 18.3729 14.551 17.3199 15.9056L20.7071 19.2929C21.0976 19.6834 21.0976 20.3166 20.7071 20.7071C20.3166 21.0976 19.6834 21.0976 19.2929 20.7071L15.9056 17.3199C14.551 18.3729 12.8487 19 11 19C6.58172 19 3 15.4183 3 11Z"
-                fill="#F9F9F9"
+        <section className="mt-20 px-4 mx-4 flex justify-center">
+          <div className="flex gap-5">
+            <div>
+              <input
+                type="text"
+                className="border-2 rounded-lg p-1 w-[75vw]"
+                placeholder="search"
               />
-            </svg>
+            </div>
+
+            <div className="bg-black p-1 w-9  flex items-center justify-center rounded-lg">
+              <Search color="#ffffff" />
+            </div>
           </div>
         </section>
 
@@ -91,21 +81,13 @@ export const Home = () => {
         </section>
 
         {/* latest products */}
-        <h2 className="my-5 text-[0.9rem] mx-4">Latest</h2>
+        <h2 className="my-5 text-[0.9rem] mx-4">latest medicines</h2>
 
-        <div className="scrollbar-hide flex overflow-scroll drop-shadow-md">
+        <div className="scrollbar-hide flex overflow-scroll ">
           {Item?.map((value) => (
             <LatestProductCard key={value._id} item={value} />
           ))}
         </div>
-
-        {/* Top deals*/}
-
-        <section>
-          <div className="mt-5 mx-5 mb-16">
-            <div className="w-full h-[200px] bg-slate-500 rounded-lg"></div>
-          </div>
-        </section>
       </main>
 
       <main className="hidden md:block">
@@ -148,7 +130,7 @@ export const Home = () => {
 
         {/* Bento Box */}
 
-        <section className="2xl:container xl:container  lg:container md:container mx-auto my-16 h-[100vh] ">
+        <section className="md:container mx-auto my-16 h-[100vh] ">
           <div className="w-full flex justify-center my-10">
             <h1 className="font-outFit font-bold text-[3rem] text-center">
               Discover Wellness with Ayurveda's Essence
@@ -219,13 +201,13 @@ export const Home = () => {
 
         {/* Skin Products */}
 
-        <section className="2xl:container xl:conatiner lg:container md:container mx-auto my-10  ">
+        <section className="md:container mx-auto my-10  ">
           <h1 className="font-Edu text-[1.5rem] mb-5">Latest products</h1>
 
           <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2">
-            {Item?.map((value)=>(<LatestCard key={value._id} data={value} />))
-              
-            }
+            {Item?.map((value) => (
+              <LatestCard key={value._id} data={value} />
+            ))}
           </div>
         </section>
 
@@ -244,11 +226,10 @@ export const Home = () => {
               <br />
             </p>
           </div>
-          <div className=" 2xl:container xl:conatiner lg:container md:container mx-auto items-center h-full w-full gap-4  grid grid-cols-3">
+          <div className="md:container mx-auto items-center h-full w-full gap-4  grid grid-cols-3">
             <TesmonialFront />
             <TesmonialFront />
             <TesmonialFront />
-            
           </div>
         </section>
       </main>

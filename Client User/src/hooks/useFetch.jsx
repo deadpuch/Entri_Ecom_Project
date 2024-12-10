@@ -5,12 +5,15 @@ export const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState({});
+  const [querry, setQuerry] = useState(false);
 
   const fetch = async () => {
     try {
       const response = await axiosInstance({
         url: url,
+        method: "GET",
       });
+
       setData(response?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -22,7 +25,7 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [querry]);
 
-  return[data,loading,error]
+  return [data, loading, error, setData, setQuerry];
 };
