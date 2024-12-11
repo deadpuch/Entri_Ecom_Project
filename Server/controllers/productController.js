@@ -15,7 +15,7 @@ export const addProduct = async (req, res, next) => {
       category,
       review,
       productImage,
-      thumbnail
+      thumbnail,
     } = req.body;
 
     // Validate required fields
@@ -53,10 +53,11 @@ export const addProduct = async (req, res, next) => {
       Product_Quantity,
       unit,
       price,
-      thumbnail: updateFields.thumbnail , // Default to an empty string if no thumbnail
+      thumbnail: updateFields.thumbnail, // Default to an empty string if no thumbnail
       productDescription,
       category,
       admin_data: req.admin?.id || null, // Ensure admin data is included
+
       review,
     });
 

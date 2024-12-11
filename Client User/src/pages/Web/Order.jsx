@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { OrderCard } from "../../components/user-components/Web/OrderCard";
 
 export const Order = () => {
-  const [orderData] = useFetch("/payment/user/orders");
+  const [orderData] = useFetch("/user//user-orders");
 
   console.log(orderData, "ooooooooo");
 

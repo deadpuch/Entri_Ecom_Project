@@ -35,3 +35,11 @@ background-size: cover;
   padding-inline: 1rem;
   color: white;
 }
+input:focus-visible{
+  outline: none;
+}
+
+.signup_img {
+  background-image: url("/images/signup.jpg");
+  background-size: cover;
+}

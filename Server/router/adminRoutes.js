@@ -4,7 +4,7 @@ import { adminAuth } from "../middleware/adminAuth.js"
 import { productRoutes } from "./productRoutes.js"
 import { upload } from "../middleware/multer.js"
 import { advMobile } from "./adCarosal.js"
-import { getAllOrders, updateOrder } from "../controllers/ManagingOrders.js"
+import { getAdminOrders, updateOrder } from "../controllers/ManagingOrders.js"
 const router=express.Router()
 
 router.post("/signup", adminSignup)
@@ -27,8 +27,8 @@ router.put('/terminateSellerAccount/:sellerId',adminAuth,TerminateSeller)
 
 router.get('/check-admin',adminAuth,checkAdmin)
 
-router.get("/admin/orders",adminAuth,getAllOrders)
-router.put("/admin/orders/:id",adminAuth, updateOrder);
+router.get("/admin/orders",adminAuth,getAdminOrders)
+// router.put("/admin/orders/:id",adminAuth, updateOrder);
 
 router.use('/product',productRoutes)
 

@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
 import { clearAdminData, saveAdminData } from "../../Redux/features/adminSlice";
 import { useFetch } from "../../hooks/userFetch";
+import { ShoppingBasket } from "lucide-react";
 
 const Menu = () => {
   const [data] = useFetch("sales/profile");
@@ -64,7 +65,7 @@ const Menu = () => {
               style={({ isActive }) => {
                 isActive ? "active" : "";
               }}
-              to={"/Products" || "add-products"}
+              to={"/Products"}
             >
               <div>
                 <svg
@@ -82,6 +83,18 @@ const Menu = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
+              </div>
+            </NavLink>
+
+
+            <NavLink
+              style={({ isActive }) => {
+                isActive ? "active" : "";
+              }}
+              to={"/order-list" }
+            >
+              <div>
+               <ShoppingBasket color="#ffff" />
               </div>
             </NavLink>
           </div>

@@ -25,16 +25,19 @@ export const ProductDetail = () => {
   );
   const [testmonial] = useFetch(`/user/review/product-review/${id}`);
 
-  const [mainImage, setMainImage] = useState(singleProduct?.productImage[0]);
+  const [mainImage, setMainImage] = useState(null);
   const [count, setCount] = useState(1);
   const [showRateReview, setShowRateReview] = useState(false);
+
+console.log(singleProduct,);
+
 
   useEffect(() => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
 
     if (singleProduct?.productImage?.length > 0) {
-      setMainImage(singleProduct.productImage[0]); // Set the first image as default
+      setMainImage(singleProduct?.productImage?.[0]?.[0]);
     }
   }, [singleProduct]);
 
@@ -52,7 +55,7 @@ export const ProductDetail = () => {
       toast.success("product added to cart");
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      // navigate("/login");
+      
     }
   };
 
@@ -153,15 +156,15 @@ export const ProductDetail = () => {
               <div>
                 <div className="flex h-[30rem] mx-4">
                   <div className="gap-5 overflow-y-scroll scrollbar-hide">
-                    {singleProduct?.productImage.map((value, index) => (
+                    {singleProduct?.productImage?.[0].map((value, index) => (
                       <div
                         key={index}
                         className="bg-black h-[80px] w-[80px] rounded-2xl my-4 overflow-hidden border-none drop-shadow-md cursor-pointer"
                         onMouseEnter={() => setMainImage(value)} // Update main image on hover
                       >
                         <img
-                          src={value}
-                          alt=""
+                          src={value ||"https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"}
+                          alt="products"
                           className="block w-full h-full object-cover"
                         />
                       </div>
@@ -169,9 +172,10 @@ export const ProductDetail = () => {
                   </div>
 
                   {/* main img */}
+
                   <div className="h-[30rem] w-[30rem] bg-red-500 ms-5 rounded-2xl overflow-hidden drop-shadow-md">
                     <img
-                      src={mainImage}
+                      src={mainImage ||"https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"}
                       alt="Main Product"
                       className="object-cover w-full h-full"
                     />
@@ -188,7 +192,7 @@ export const ProductDetail = () => {
                     INR:{singleProduct?.price} ₹
                   </h1>
                   <div className="flex w-20">
-                    {Array.from({ length: 5 }, () => (
+                    {Array.from({ length: 5 }, (key) => (
                       <Star fill="#111" />
                     ))}
                   </div>

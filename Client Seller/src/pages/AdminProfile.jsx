@@ -3,15 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetch } from "../hooks/userFetch";
 
-
-
 export const AdminProfile = () => {
-  const [adminData] = useFetch("admin/profile");
+  const [adminData] = useFetch("/sales/profile");
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
-
-console.log(adminData);
-
 
   const handleUserEdit = () => {
     navigate("/setting/edit-profile");

@@ -15,6 +15,7 @@ import { AdminProfile } from "../pages/AdminProfile";
 import { SettingLayout } from "../Layout/SettingLayout";
 import { EditProfile } from "../pages/EditProfile";
 import { AccountTerminate } from "../pages/AccountTerminate";
+import { OrderList } from "../pages/OrderList";
 
 export const Router = () => {
   const params = useParams();
@@ -32,6 +33,9 @@ export const Router = () => {
             <Route path="add-products" element={<AddNewProduct />} />
             <Route path="user-list" element={<UserList />} />
             <Route path="seller-list" element={<SellerList />} />
+            <Route path="order-list" element={<OrderList/>} />
+
+
             <Route path="edit-product/:id" element={<EditProduct />} />
             <Route path="setting" element={<SettingLayout/>}>
               <Route path="admin-profile" element={<AdminProfile/>} />

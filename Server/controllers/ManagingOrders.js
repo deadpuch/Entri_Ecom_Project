@@ -1,22 +1,59 @@
 import { Order } from "../models/order.js";
 
 // Get All Orders
-export const getAllOrders = async (req, res) => {
+export const getAdminOrders = async (req, res) => {
   try {
-    const { status, userId } = req.query;
+    const adminId = req.admin.id;
+    const salesId = req.sales.id;
 
-    const query = {};
-    if (status) query.orderStatus = status;
-    if (userId) query.user = userId;
-
-    const orders = await Order.find(query)
+    const orders = await Order.find({ admin: adminId })
       .populate("user", "name email")
       .populate("products", "name price thumbnail")
       .populate("shippingAddress");
 
     res.status(200).json({ success: true, data: orders });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch orders", error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders",
+      error: error.message,
+    });
+  }
+};
+export const getSellerOrders = async (req, res) => {
+  try {
+    const salesId = req.sales.id;
+
+    const orders = await Order.find({ seller: salesId })
+      .populate("user", "name email")
+      .populate("products", "name price thumbnail")
+      .populate("shippingAddress");
+
+    res.status(200).json({ success: true, data: orders });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders",
+      error: error.message,
+    });
+  }
+};
+export const getAllOrders = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const orders = await Order.find({ user: userId })
+      .populate("user", "name email")
+      .populate("products", "name price thumbnail")
+      .populate("shippingAddress");
+
+    res.status(200).json({ success: true, data: orders });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders",
+      error: error.message,
+    });
   }
 };
 
@@ -32,11 +69,17 @@ export const updateOrder = async (req, res) => {
     });
 
     if (!updatedOrder) {
-      return res.status(404).json({ success: false, message: "Order not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
     }
 
     res.status(200).json({ success: true, data: updatedOrder });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to update order", error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Failed to update order",
+      error: error.message,
+    });
   }
 };

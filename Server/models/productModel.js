@@ -43,6 +43,8 @@ const productSchema = mongoose.Schema(
 
     category: {
       type: String,
+      default: "All",
+
     },
 
     admin_data: {

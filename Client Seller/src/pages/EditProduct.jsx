@@ -30,7 +30,10 @@ console.log(productData,"===product");
 
   useEffect(() => {
     setValue("productName", productData?.productName);
-    setValue("productName", productData?.productName);
+    setValue("Product_Quantity", productData?.Product_Quantity);
+    setValue("unit", productData?.unit);
+    setValue("productDescription", productData?.productDescription);
+    setValue("price", productData?.price);
     setMultiFile(productData?.productImage)
     setFile(productData?.thumbnail)
   }, [productData]);

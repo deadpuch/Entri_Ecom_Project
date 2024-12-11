@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../config/axiosInstance";
 
-
 export const LatestCard = ({ data }) => {
   const navigate = useNavigate();
 
@@ -11,15 +10,12 @@ export const LatestCard = ({ data }) => {
     navigate(`/productDetails/${data?._id}`);
   };
 
-console.log(data,"====wish to have");
-
-
   const handleWishlist = async () => {
     try {
-      const response = await  axiosInstance({
-        url:"/user/wishlist/add",
-        method:"POST",
-        data:{productId:data?._id},
+      const response = await axiosInstance({
+        url: "/user/wishlist/add",
+        method: "POST",
+        data: { productId: data?._id },
       });
     } catch (error) {
       console.log(error);

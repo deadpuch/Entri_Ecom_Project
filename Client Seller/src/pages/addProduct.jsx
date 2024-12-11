@@ -16,6 +16,9 @@ const AddProduct = () => {
 
   const [data, loading, error,setData,] = useFetch(user.product_api);
 
+
+
+
   return (
     <section>
       {/* Header section */}

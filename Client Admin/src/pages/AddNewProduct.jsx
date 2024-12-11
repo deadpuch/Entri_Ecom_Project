@@ -1,8 +1,9 @@
 import { Camera, CircleX } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+
 import { instance } from "../config/AxiosInstance";
+import toast from "react-hot-toast";
 
 export const AddNewProduct = () => {
   const {

@@ -31,7 +31,7 @@ console.log(userdata,"===userdata");
         </thead>
         <tbody>
           {userdata && userdata.map((user, index) => (
-            <UserCardRow getuser={user} key={user._id} />
+            <UserCardRow getuser={user} user={user._id} key={index} />
           ))}
         </tbody>
         {/* foot */}

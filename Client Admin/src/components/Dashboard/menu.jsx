@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
 import { clearAdminData, saveAdminData } from "../../Redux/features/adminSlice";
 import { useFetch } from "../../hooks/userFetch";
+import { ShoppingBasket } from "lucide-react";
 
 const Menu = () => {
   const [data] = useFetch("admin/profile");
@@ -120,6 +121,17 @@ const Menu = () => {
                 </svg>
               </div>
             </NavLink>
+
+            <NavLink
+              style={({ isActive }) => {
+                isActive ? "active" : "";
+              }}
+              to={"/order-list"}
+            >
+              <div>
+                <ShoppingBasket color="#ffff" />
+              </div>
+            </NavLink>
           </div>
         </div>
 
@@ -152,7 +164,11 @@ const Menu = () => {
           </NavLink>
 
           <div className=" rounded-full h-[40px] w-[40px] overflow-hidden bg-white">
-            <img src={data?.profilePic} alt="" className="w-full h-full block object-cover" />
+            <img
+              src={data?.profilePic}
+              alt=""
+              className="w-full h-full block object-cover"
+            />
           </div>
 
           <div onClick={handleLogout} className=" cursor-pointer">

@@ -1,15 +1,13 @@
-import React from 'react'
+import React from "react";
 
-export const CateogaryList = () => {
+export const CateogaryList = ({ data }) => {
+
+
   return (
     <div>
-        <ul className='flex gap-5'>
-            <li>All</li>
-            <li>Skin</li>
-            <li>Leg</li>
-            <li>Heart</li>
-            <li>Hair</li>
-        </ul>
+      <ul className="flex gap-5">
+        <li>{data?.category}</li>
+      </ul>
     </div>
-  )
-}
+  );
+};

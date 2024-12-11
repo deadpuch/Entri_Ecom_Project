@@ -1,45 +1,45 @@
 import mongoose from "mongoose";
 
-const orderSchema =  mongoose.Schema(
+const orderSchema = mongoose.Schema(
   {
-    user: {
+    user:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      
+    },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admin",
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "salesusers",
     },
     products: [
       {
         productId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "products",
-          
         },
         productName: {
           type: String,
-          
         },
         quantity: {
           type: Number,
-          
         },
         price: {
           type: Number,
-          
         },
         totalPrice: {
           type: Number,
-          
         },
         thumbnail: {
           type: String,
-          
         },
       },
     ],
     shippingAddress: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "address",
-      
     },
     paymentStatus: {
       type: String,

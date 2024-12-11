@@ -31,7 +31,7 @@ export const CustomAlert = ({ onClose }) => {
   const handleDeactive = async () => {
     try {
       const response = await instance({
-        url: "/admin/delete-account",
+        url: "/sales/delete-account",
         method: "DELETE",
       });
       toast.success("Profile terminated. Thank you for being with us.");

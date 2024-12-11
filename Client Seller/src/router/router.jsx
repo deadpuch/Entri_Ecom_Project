@@ -16,6 +16,7 @@ import { SettingLayout } from "../Layout/SettingLayout";
 import { EditProfile } from "../pages/EditProfile";
 import { AccountTerminate } from "../pages/AccountTerminate";
 import { SignUp } from "../pages/shared/SignUp";
+import { OrderList } from "../pages/OrderList";
 
 export const Router = () => {
   const params = useParams();
@@ -32,6 +33,7 @@ export const Router = () => {
             <Route index element={<Dashboard />} />
             <Route path="products" element={<AddProduct />} />
             <Route path="add-products" element={<AddNewProduct />} />
+            <Route path="order-list" element={<OrderList/>} />
            
            
             <Route path="edit-product/:id" element={<EditProduct />} />

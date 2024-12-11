@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { instance } from "../../config/AxiosInstance";
 import toast from "react-hot-toast";
 
-export const UserCardRow = ({ getuser, key }) => {
+export const UserCardRow = ({ getuser, user }) => {
   // Initialize the state based on the user's Active status
   const [isActive, setIsActive] = useState(getuser?.Active || false);
 
@@ -12,7 +12,7 @@ export const UserCardRow = ({ getuser, key }) => {
 
     try {
       const response = await instance({
-        url: `/admin/terminateAccount/${key}`,
+        url: `/admin/terminateAccount/${user}`,
         method: "PUT",
         data: { Active: newActiveState }, // Send the new state to the API
       });

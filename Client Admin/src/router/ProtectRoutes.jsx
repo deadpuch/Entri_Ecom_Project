@@ -26,8 +26,7 @@ export const ProtectRoutes = () => {
     }
   };
 
-  console.log(isAdminAuth, "====adminauth");
-  console.log(adminData, "====admindata");
+
 
   useEffect(() => {
     adminAuth();

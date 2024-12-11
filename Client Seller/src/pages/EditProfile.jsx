@@ -14,7 +14,7 @@ export const EditProfile = () => {
     formState: { errors },
   } = useForm();
 
-  const [data] = useFetch("admin/profile");
+  const [data] = useFetch("/sales/profile");
   const [file, setFile] = useState();
 
   useEffect(() => {
@@ -27,9 +27,9 @@ export const EditProfile = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("Email", data.Email);
-      formData.append("adminProfileImg", data.thumbnail);
+      formData.append("sellerProPic", data.thumbnail);
       const response = await instance({
-        url: "/admin/profile-update",
+        url: "/sales/profile-update",
         method: "PUT",
         data: formData,
       });

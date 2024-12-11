@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { instance } from "../../config/AxiosInstance";
 
-
-
 export const SignUp = () => {
   const {
     register,
@@ -20,7 +18,7 @@ export const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       const response = await instance({
-        url: "/user/signup",
+        url: "/sales/signup",
         method: "POST",
         data,
       });
@@ -41,128 +39,179 @@ export const SignUp = () => {
 
   return (
     <main>
-      <section className="grid grid-cols-2">
+      <section className="grid sm:grid-cols-2 grid-cols-1">
         {/* form */}
-        <div>
+        <div className="with-[500px] py-5">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="h-screen w-full flex justify-center items-center">
+            <div className="h-screen w-full flex justify-center items-center py-5">
               <div>
-                <h1 className="font-bold text-2xl">
-                  Hi Welcome to <br />{" "}
-                  <span className="text-[2.5rem]"> SRM PHARMA</span>{" "}
+                <h1 className="font-bold text-[clamp(0.8rem,5vw,1rem)] md:mb-0 mb-5">
+                  JOIN US FOR A <br />{" "}
+                  <span className="text-[clamp(0.8rem,5vw,2rem)]">
+                    HEALTHIER FUTURE
+                  </span>{" "}
                 </h1>
 
-                <div className="w-80 h-80 my-10">
-                  <div className="flex flex-col mb-5">
-                    <label htmlFor="user_name">User Name</label>
-                    <input
-                      type="text"
-                      className={`border-2 h-10 rounded-full p-2 ${
-                        errors.User_name ? "input-error" : ""
-                      }`}
-                      id="user_name"
-                      {...register("User_name", {
-                        required: "user name Required",
-                      })}
-                    />
-                    {errors.User_name && (
-                      <span className="text-red-500 text-sm mt-1">
-                        {errors?.User_name?.message}
-                      </span>
-                    )}
+                <div className="h-fit md:my-5 ">
+                  <div className="flex gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="user_name"
+                        className="text-sm text-gray-400"
+                      >
+                        User Name
+                      </label>
+                      <input
+                        type="text"
+                        className={`border-b md:h-5 h-6  p-2 ${
+                          errors.name ? "input-error" : ""
+                        }`}
+                        id="user_name"
+                        {...register("name", {
+                          required: "user name Required",
+                        })}
+                      />
+                      {errors.name && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors?.name?.message}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="mail" className="text-sm text-gray-400">
+                        Mail Id
+                      </label>
+                      <input
+                        type="text"
+                        className={`border-b md:h-5 h-6   p-2 ${
+                          errors.Email ? "input-error" : ""
+                        }`}
+                        id="mail"
+                        {...register("Email", {
+                          required: "Email Required",
+                        })}
+                      />
+                      {errors.Email && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors?.Email?.message}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex flex-col mb-5">
-                    <label htmlFor="mail">Mail Id</label>
-                    <input
-                      type="text"
-                      className={`border-2 h-10 rounded-full p-2 ${
-                        errors.Email ? "input-error" : ""
-                      }`}
-                      id="mail"
-                      {...register("Email", {
-                        required: "Email Required",
-                      })}
-                    />
-                    {errors.Email && (
-                      <span className="text-red-500 text-sm mt-1">
-                        {errors?.Email?.message}
-                      </span>
-                    )}
+                  <div className="flex gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="company_name"
+                        className="text-sm text-gray-400"
+                      >
+                        company name
+                      </label>
+                      <input
+                        type="text"
+                        className={`border-b md:h-5 h-6  p-2 ${
+                          errors.company_name ? "input-error" : ""
+                        }`}
+                        id="company_name"
+                        {...register("company_name", {
+                          required: "company name Required",
+                        })}
+                      />
+                      {errors.company_name && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors?.company_name?.message}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="mail" className="text-sm text-gray-400">
+                        Mobile
+                      </label>
+                      <input
+                        type="text"
+                        className={`border-b md:h-5 h-6   p-2 ${
+                          errors.mobile ? "input-error" : ""
+                        }`}
+                        id="mail"
+                        {...register("mobile", {
+                          required: "mobile number Required",
+                        })}
+                      />
+                      {errors.mobile && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors?.mobile?.message}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex flex-col mb-5">
-                    <label htmlFor="GST_no">GST_no</label>
-                    <input
-                      type="text"
-                      className={`border-2 h-10 rounded-full p-2 ${
-                        errors.GST_no ? "input-error" : ""
-                      }`}
-                      id="GST_no"
-                      {...register("GST_no", {
-                        required: "GST_no Required",
-                      })}
-                    />
-                    {errors.GST_no && (
-                      <span className="text-red-500 text-sm mt-1">
-                        {errors?.GST_no?.message}
-                      </span>
-                    )}
-                  </div>
+                  <div className="flex gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="password"
+                        className="text-sm text-gray-400"
+                      >
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        className={`border-b md:h-5 h-6  p-2 ${
+                          errors.password ? "input-error" : ""
+                        }`}
+                        id="password"
+                        {...register("password", {
+                          required: "Password is required",
+                          minLength: {
+                            value: 6,
+                            message:
+                              "Password must be at least 6 characters long",
+                          },
+                        })}
+                      />
+                      {errors.password && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors.password.message}
+                        </span>
+                      )}
+                    </div>
 
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="password">Password</label>
-                    <input
-                      type="password"
-                      className={`border-2 h-10 rounded-full p-2 ${
-                        errors.password ? "input-error" : ""
-                      }`}
-                      id="password"
-                      {...register("password", {
-                        required: "Password is required",
-                        minLength: {
-                          value: 6,
-                          message:
-                            "Password must be at least 6 characters long",
-                        },
-                      })}
-                    />
-                    {errors.password && (
-                      <span className="text-red-500 text-sm mt-1">
-                        {errors.password.message}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="confirm_password">Confirm Password</label>
-                    <input
-                      type="password"
-                      className={`border-2 h-10 rounded-full p-2 ${
-                        errors.confirm_password ? "input-error" : ""
-                      }`}
-                      id="confirm_password"
-                      {...register("confirm_password", {
-                        required: "Please confirm your password",
-                        validate: (value) =>
-                          value === getValues("password") ||
-                          "Passwords do not match",
-                      })}
-                    />
-                    {errors.confirm_password && (
-                      <span className="text-red-500 text-sm mt-1">
-                        {errors.confirm_password.message}
-                      </span>
-                    )}
+                    <div className="flex flex-col mb-2">
+                      <label
+                        htmlFor="confirm_password"
+                        className="text-sm text-gray-400"
+                      >
+                        Confirm Password
+                      </label>
+                      <input
+                        type="password"
+                        className={`border-b md:h-5 h-6   p-2 ${
+                          errors.confirm_password ? "input-error" : ""
+                        }`}
+                        id="confirm_password"
+                        {...register("confirm_password", {
+                          required: "Please confirm your password",
+                          validate: (value) =>
+                            value === getValues("password") ||
+                            "Passwords do not match",
+                        })}
+                      />
+                      {errors.confirm_password && (
+                        <span className="text-red-500 text-sm mt-1">
+                          {errors.confirm_password.message}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <button
-                    className="btn w-full bg-green-300 my-5"
+                    className="btn w-full bg-green-300 my-5 hover:bg-orange-400 text-white"
                     type="submit"
                   >
                     Sign up
                   </button>
-                  <div className="border-b-2 my-7 "></div>
+                  <div className="border-b-2 my-5 " />
 
                   <div className="w-full flex justify-center items-center">
                     <h1>

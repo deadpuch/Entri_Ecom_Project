@@ -11,14 +11,11 @@ export const EditProduct = () => {
   const [multiFile, setMultiFile] = useState([]);
   const [file, setFile] = useState();
 
-
-
   const [productData, loading, error] = useFetch(
     `/admin/product/get-productDetails/${id}`
   );
 
-console.log(productData,"===product");
-
+  console.log(productData, "===product");
 
   const {
     register,
@@ -30,11 +27,13 @@ console.log(productData,"===product");
 
   useEffect(() => {
     setValue("productName", productData?.productName);
-    setValue("productName", productData?.productName);
-    setMultiFile(productData?.productImage)
-    setFile(productData?.thumbnail)
+    setValue("Product_Quantity", productData?.Product_Quantity);
+    setValue("unit", productData?.unit);
+    setValue("productDescription", productData?.productDescription);
+    setValue("price", productData?.price);
+    setMultiFile(productData?.productImage?.[0]);
+    setFile(productData?.thumbnail);
   }, [productData]);
-
 
   const handleChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -220,7 +219,6 @@ console.log(productData,"===product");
                 Description
               </label>
               <textarea
-                value={productData?.productDescription}
                 id="description"
                 rows={5}
                 className="w-[15rem] border-[1px] p-1 rounded-md"

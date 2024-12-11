@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useFetch } from "../../hooks/useFetch";
 import { loadStripe } from "@stripe/stripe-js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const CheckOut = () => {
   const {
@@ -17,7 +17,13 @@ export const CheckOut = () => {
   } = useForm();
   const [cartData] = useFetch("/cart/showItems");
   const [addressData] = useFetch("/user/get-address");
-  const navigate=useNavigate()
+
+  const adminId =cartData?.[0]?.products?.[0]?.productId?.admin_data 
+  const sellerId= cartData?.[0]?.products?.[0]?.productId?.seller_data;
+   
+   
+
+  const userId = cartData?.[0]?.userId;
 
   useEffect(() => {
     setValue("Mobile", addressData?.[0]?.Mobile);
@@ -37,6 +43,7 @@ export const CheckOut = () => {
         url: "/user/add-address",
         method: "POST",
         data,
+        cartData,
       });
       toast.success("Address Added");
 
@@ -47,7 +54,12 @@ export const CheckOut = () => {
       const session = await axiosInstance({
         url: "/payment/create-checkout-session",
         method: "POST",
-        data: { products: cartData?.[0]?.products },
+        data: {
+          products: cartData?.[0]?.products,
+          userId: userId,
+          sellerId: sellerId,
+          adminId:adminId
+        },
       });
 
       if (session?.data?.sessionId) {
@@ -65,37 +77,6 @@ export const CheckOut = () => {
       console.error(error);
     }
   };
-
-  const confirmPayment = async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sessionId = urlParams.get("session_id");
-
-    if (sessionId) {
-      try {
-        const response = await axiosInstance({
-          url: `/payment/confirm`,
-          method: "GET",
-          params: { sessionId },
-        });
-
-        if (response.data.success) {
-          toast.success("Payment confirmed!");
-          // Optional: Redirect to orders or clear cart
-          navigate("/orders");
-        } else {
-          toast.error("Payment confirmation failed!");
-        }
-      } catch (error) {
-        toast.error(
-          error?.response?.data?.message || "Error confirming payment"
-        );
-      }
-    }
-  };
-
-  useEffect(()=>{
-    confirmPayment();
-  },[navigate])
 
   return (
     <section className="md:h-screen md:justify-center md:w-[40vw] md:container md:mx-auto md:pt-20 h-auto flex-col flex pt-5 mx-4">

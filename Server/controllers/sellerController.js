@@ -6,10 +6,10 @@ import { cloudnaryInstance } from "../config/cloudinary.js";
 
 export const salesSignup = async (req, res, next) => {
   try {
-    const { name, company_name, GST_no, Email, password, mobile, profilePic } =
+    const { name, company_name,Email, password, mobile, profilePic } =
       req.body;
 
-    if (!name || !Email || !password || !company_name || !GST_no || !mobile) {
+    if (!name || !Email || !password || !company_name || !mobile) {
       return res.status(400).json({ message: "all field required" });
     }
 
@@ -25,19 +25,19 @@ export const salesSignup = async (req, res, next) => {
       name,
       Email,
       company_name,
-      GST_no,
       password: hashedPassword,
       mobile,
       profilePic,
+
     });
     await newsales.save();
 
     const token = generateToken(newsales, "salesUser");
-    res.cookie("token", token,{
+    res.cookie("token", token, {
       sameSite: "none",
-     secure: true,
-     httpOnly: true,
-   });
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "seller user created successfully" });
   } catch (error) {
@@ -73,11 +73,11 @@ export const salesLogin = async (req, res, next) => {
     }
 
     const token = generateToken(checkSales, "salesUser");
-    res.cookie("token", token,{
+    res.cookie("token", token, {
       sameSite: "none",
-     secure: true,
-     httpOnly: true,
-   });
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "seller user Login successfull" });
   } catch (error) {
@@ -155,11 +155,11 @@ export const salesResetPassword = async (req, res, next) => {
 
 export const salesLogout = async (req, res, next) => {
   try {
-    res.clearCookie("token",{
+    res.clearCookie("token", {
       sameSite: "none",
-     secure: true,
-     httpOnly: true,
-   });
+      secure: true,
+      httpOnly: true,
+    });
 
     res.json({ message: "seller logout successfully" });
   } catch (error) {

@@ -11,6 +11,7 @@ import { Testimonial } from "../../components/user-components/Web/Testimonial";
 import { LatestCard } from "../../components/user-components/Web/LatestCard";
 import { TesmonialFront } from "../../components/user-components/Web/TesmonialFront";
 import { Search } from "lucide-react";
+import { CateogaryList } from "../../components/user-components/Mobile Components/CateogaryList";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -49,35 +50,12 @@ export const Home = () => {
 
         {/* cateogry */}
         <section className="mt-5 ps-4 overflow-x-scroll scrollbar-hide">
-          <ul className="flex gap-2">
-            <NavLink
-              to="#"
-              style={({ isActive }) => {
-                isActive ? "active" : "";
-              }}
-            >
-              {" "}
-              <li className="text-sm ">Fruits</li>
-            </NavLink>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              Vegitable
-            </li>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              jwellery
-            </li>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              Vegitable
-            </li>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              jwellery
-            </li>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              Vegitable
-            </li>
-            <li className="border-2 px-3 rounded-full flex items-center justify-center text-sm ">
-              jwellery
-            </li>
-          </ul>
+        <ul className="flex gap-5">
+          <li>ALL</li>
+          <li>FRUITS</li>
+          <li>VEGITABLES</li>
+        </ul>
+        
         </section>
 
         {/* latest products */}

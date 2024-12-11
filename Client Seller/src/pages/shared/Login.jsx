@@ -35,21 +35,27 @@ export const Login = () => {
 
   return (
     <section className="grid grid-cols-2 ">
-      <div className="backdrop flex justify-center items-center"></div>
+      <div className="backdrop flex justify-center items-center" />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="h-screen w-full flex justify-center items-center">
-          <div>
-            <h1 className="font-bold text-2xl">
-              Hey <br /> <span className="text-[2.5rem]"> What's Up</span>{" "}
+      <form onSubmit={handleSubmit(onSubmit)} className=" w-full h-s ">
+        <div className="h-screen w-full flex justify-center items-center bg-white">
+          <div className="h-fit sm:px-4">
+            <h1 className="font-bold text-[clamp(0.8rem,5vw,1.5rem)]">
+              Hi Welcome to <br />{" "}
+              <span className="sm:text-[clamp(0.8rem,5vw,3rem)] text-[clamp(0.8rem,10vw,3rem)]">
+                {" "}
+                SRM PHARMA
+              </span>{" "}
             </h1>
 
-            <div className="w-80 h-80 my-10">
+            <div className=" h-fit my-10">
               <div className="flex flex-col mb-5">
-                <label htmlFor="mail">Mail Id</label>
+                <label htmlFor="mail" className="text-sm text-gray-400">
+                  Mail Id
+                </label>
                 <input
                   type="text"
-                  className={`border-2 h-10 rounded-full p-2 ${
+                  className={`border-b h-10  p-2 ${
                     errors.Email ? "input-error" : ""
                   }`}
                   id="mail"
@@ -65,10 +71,12 @@ export const Login = () => {
               </div>
 
               <div className="flex flex-col mb-2">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="text-sm text-gray-400">
+                  Password
+                </label>
                 <input
                   type="password"
-                  className={`border-2 h-10 rounded-full p-2 ${
+                  className={`border-b h-10  p-2 ${
                     errors.password ? "input-error" : ""
                   }`}
                   id="password"
@@ -82,7 +90,7 @@ export const Login = () => {
                   </span>
                 )}
               </div>
-              <Link to={"/rest-password"}>
+              <Link to={"/reset_password"}>
                 <h3 className=" underline mb-10 text-blue-500 cursor-pointer">
                   Forgot Password ?
                 </h3>
@@ -91,7 +99,8 @@ export const Login = () => {
               <button className="btn w-full bg-green-300" type="submit">
                 Login
               </button>
-              <div className="border-b-2 my-10 " />
+              <div className="border-b-2 md:my-10 my-4  "></div>
+
               <div className="w-full flex justify-center items-center">
                 <h1>
                   Don't have an account !

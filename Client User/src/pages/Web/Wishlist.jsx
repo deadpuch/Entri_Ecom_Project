@@ -36,7 +36,7 @@ export const Wishlist = () => {
 
   return (
     <section className="h-auto pt-10 md:pt-0 md:h-screen">
-      <div className="flex px-4 top-0 w-full justify-between fixed z-10 bg-white py-4 ">
+      <div className="md:hidden flex px-4 top-0 w-full justify-between fixed z-10 bg-white py-4 ">
         <div className="flex items-center">
           <Link to="/">
             <ChevronLeft />

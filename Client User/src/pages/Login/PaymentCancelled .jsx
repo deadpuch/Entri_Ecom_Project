@@ -6,19 +6,19 @@ export const PaymentCancelled  = () => {
 
   setTimeout(() => {
     navigate("/");
-  }, 2000);
+  }, 3000);
   return (
-    <div className="mx-4">
-      <div className="max-h-[50rem] max-w-[50rem]">
-        <img
-          src="/IMG/error.jpg"
-          alt="success"
-          className="w-full h-full block object-cover"
-        />
-      </div>
-      <h1 className="w-full flex justify-center font-outFit text-2xl">
-        Payment Error 
-      </h1>
+    <div className="mx-4 md:mx-0 flex md:justify-center flex-col items-center">
+    <div className="max-h-[25rem] max-w-[25rem] md:max-h-[50rem] md:max-w-[50rem]  ">
+      <img
+        src="/IMG/error.jpg"
+        alt="error"
+        className="w-full h-full block object-cover"
+      />
     </div>
+    <h1 className="w-full flex justify-center font-outFit text-[clamp(1rem,5vw,2rem) text-center]">
+      Payment got Cancelled
+    </h1>
+  </div>
   );
 };

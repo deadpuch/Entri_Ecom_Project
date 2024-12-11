@@ -1,11 +1,31 @@
 import { REVIEW } from "../models/reviewModel.js";
 import { PRODUCT } from "../models/productModel.js";
+import { Order } from "../models/order.js";
+
+import mongoose from "mongoose";
 
 export const createReview = async (req, res, next) => {
   try {
+
+    // console.log( req.user.id,"=====");
+    
     const { productId } = req.params;
     const { rating, comment, user_data } = req.body;
     const userId = req.user.id;
+
+  
+    const order = await Order.findOne({user:req.user.id,
+      products: { $elemMatch: { productId:productId }} });
+
+console.log(order.paymentStatus,"=====");
+
+    
+      if (order.paymentStatus !=="Completed") {
+        return res
+          .status(401)
+          .json({ message: "Feedback allowed only after purchase." });
+      }
+
 
     // Create the review
     const review = await REVIEW.create({
@@ -13,7 +33,7 @@ export const createReview = async (req, res, next) => {
       productId,
       rating,
       comment,
-      user_data: userId,
+      user_data, // Save complete user data
     });
 
     // Link the review to the product
@@ -21,13 +41,14 @@ export const createReview = async (req, res, next) => {
       $push: { review: review._id },
     });
 
-    res
-      .status(201)
-      .json({ message: "reivew created successfully", data: review });
+    res.status(201).json({
+      message: "Review created successfully",
+      data: review,
+    });
   } catch (error) {
-    res
-      .status(error.statusCode || 500)
-      .json({ message: error.message || "internal server error" });
+    res.status(error.statusCode || 500).json({
+      message: error.message || "Internal server error",
+    });
   }
 };
 
@@ -58,7 +79,7 @@ export const productReview = async (req, res, next) => {
   try {
     const { productId } = req.params;
 
-    const reviews = await REVIEW.find({productId:productId}).populate(
+    const reviews = await REVIEW.find({ productId: productId }).populate(
       "user_data",
       "User_name profilePic"
     );
