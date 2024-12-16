@@ -1,8 +1,9 @@
 import React from "react";
-import toast from "react-hot-toast/headless";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
+import toast from "react-hot-toast"
+
 
 export const Login = () => {
   const {
@@ -24,7 +25,7 @@ export const Login = () => {
       navigate("/");
       toast.success("login successfully");
     } catch (error) {
-      toast.error("login failed");
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

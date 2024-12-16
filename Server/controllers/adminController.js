@@ -61,7 +61,7 @@ export const adminLogin = async (req, res, next) => {
     const checkPassowrd = bcrypt.compareSync(password, checkadmin.password);
 
     if (!checkPassowrd) {
-      return res.status(400).json({ message: "admin not authenticated" });
+      return res.status(400).json({ message: "Username or password is incorrect" });
     }
 
     const token = generateToken(checkadmin, "admin");
