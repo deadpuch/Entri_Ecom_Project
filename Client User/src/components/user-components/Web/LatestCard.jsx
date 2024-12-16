@@ -1,10 +1,11 @@
 import { Star, Heart } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../config/axiosInstance";
 
 export const LatestCard = ({ data }) => {
   const navigate = useNavigate();
+  const[isWishlist, setIsWishlist] = useState(false);
 
   const handleNavigate = () => {
     navigate(`/productDetails/${data?._id}`);
@@ -12,6 +13,8 @@ export const LatestCard = ({ data }) => {
 
   const handleWishlist = async () => {
     try {
+      setIsWishlist(!isWishlist);
+
       const response = await axiosInstance({
         url: "/user/wishlist/add",
         method: "POST",
@@ -28,9 +31,9 @@ export const LatestCard = ({ data }) => {
           className=" absolute right-1 top-1 bg-black bg-opacity-35  z-10 p-1 rounded-full"
           onClick={handleWishlist}
         >
-          <Heart size={24} color="#ffffff" />
+          <Heart size={24} color={isWishlist ? "red" : ""} fill={isWishlist ? "red" : ""} />
         </div>
-
+       
         <img
           src={data?.thumbnail}
           alt={data?.productName}
