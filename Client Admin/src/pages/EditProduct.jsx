@@ -15,8 +15,6 @@ export const EditProduct = () => {
     `/admin/product/get-productDetails/${id}`
   );
 
-  console.log(productData, "===product");
-
   const {
     register,
     handleSubmit,
@@ -33,12 +31,15 @@ export const EditProduct = () => {
     setValue("price", productData?.price);
     setMultiFile(productData?.productImage?.[0]);
     setFile(productData?.thumbnail);
-  }, [productData]);
+  }, [productData,setMultiFile]);
 
   const handleChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(URL.createObjectURL(selectedFile));
-    setValue("thumbnail", selectedFile); // Set the thumbnail file manually
+    const selectedFile = e.target.files[0]; // Get the selected file
+
+    if (selectedFile) {
+      setFile(URL.createObjectURL(selectedFile)); // Set preview URL for display
+      setValue("thumbnail", selectedFile); // Update the form value with the raw file
+    }
   };
 
   const handleDeleteImg = () => {
@@ -48,13 +49,23 @@ export const EditProduct = () => {
 
   const handleMultipleImg = (e) => {
     if (e.target.files) {
-      const filesArray = Array.from(e.target.files).map((file) =>
-        URL.createObjectURL(file)
-      );
+      const filesArray = Array.from(e.target.files);
+      const previewUrls = filesArray.map((file) => URL.createObjectURL(file));
 
       if (multiFile.length + filesArray.length <= 5) {
-        setMultiFile((prevImages) => prevImages.concat(filesArray));
-        setValue("itemImage", e.target.files); // Set the multiple files manually
+        setMultiFile((prevImages) => [
+          ...prevImages,
+          ...filesArray.map((file, i) => ({
+            raw: file,
+            preview: previewUrls[i],
+          })),
+        ]);
+
+        // Set raw files for form submission
+        setValue("itemImage", [
+          ...(multiFile.map((img) => img.raw) || []),
+          ...filesArray,
+        ]);
       } else {
         alert("You can only upload a maximum of 5 images.");
       }
@@ -74,10 +85,10 @@ export const EditProduct = () => {
       formData.append("unit", data.unit);
       formData.append("price", data.price);
       formData.append("productDescription", data.productDescription);
-      formData.append("thumbnail", data.thumbnail); // Use the file from form
-      if (data.itemImage) {
-        Array.from(data.itemImage).forEach((file) => {
-          formData.append("itemImage", file); // Append multiple product images
+      formData.append("thumbnail", data.thumbnail);
+      if (multiFile) {
+        Array.from(multiFile).forEach((file) => {
+          formData.append("itemImage", file);
         });
       }
       const response = await instance({
@@ -86,10 +97,10 @@ export const EditProduct = () => {
         data: formData,
       });
       toast.success("Product created successfully");
-      // Reset form and state
-      setFile(null); // Clear single image
-      setMultiFile([]); // Clear multiple images
-      reset(); // Reset react-hook-form fields
+
+      setFile(null);
+      setMultiFile([]);
+      reset();
     } catch (error) {
       console.log(error, "===error");
       toast.error("Error while creating product");

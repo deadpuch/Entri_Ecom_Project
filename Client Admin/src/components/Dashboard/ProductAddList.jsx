@@ -32,20 +32,15 @@ export const ProductAddList = ({ item, setData }) => {
     }
   };
 
+
+  
   return (
     <div
       className={`grid grid-cols-8 m-2 p-1 items-center  border rounded-lg ${
         isSelected ? "bg-blue-100" : "bg-white"
       }`}
     >
-      {/* Checkbox */}
-      <div className="flex justify-center">
-        <input
-          type="checkbox"
-          checked={isSelected}
-          onChange={handleCheckboxChange}
-        />
-      </div>
+     
 
       {/* Image */}
       <div className="flex justify-center">
