@@ -15,8 +15,9 @@ export const AddNewProduct = () => {
 
   const [file, setFile] = useState();
   const [multiFile, setMultiFile] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  console.log(file, "====file");
+
 
   const handleChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -50,7 +51,7 @@ export const AddNewProduct = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, "=====data");
+      setLoading(true);
       const formData = new FormData();
       formData.append("productName", data.productName);
       formData.append("Product_Quantity", data.Product_Quantity);
@@ -68,6 +69,7 @@ export const AddNewProduct = () => {
         method: "POST",
         data: formData,
       });
+      setLoading(false);
       toast.success("Product created successfully");
       // Reset form and state
       setFile(null); // Clear single image
@@ -86,235 +88,244 @@ export const AddNewProduct = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="h-full border-2 w-full p-5 rounded-2xl">
-        <div>
-          <h1 className="text-[2rem] font-semibold mb-5">Add New Product</h1>
-
-          <div className="w-full">
-            <h1 className="font-semibold text-[1.2rem] mb-5">Product Info</h1>
-
-            {/* Product Name */}
-            <div className="flex gap-5">
-              <div className="flex flex-col">
-                <label
-                  htmlFor="productname"
-                  className="font-medium text-gray-500 mb-2"
-                >
-                  Product Name
-                </label>
-                <input
-                  type="text"
-                  className={`border-[1px] h-[2rem] rounded-md p-2 ${
-                    errors.productName ? "input-error" : ""
-                  }`}
-                  id="productname"
-                  placeholder="Product name"
-                  {...register("productName", {
-                    required: "Product Name is required",
-                  })}
-                />
-                {errors.productName && (
-                  <span className="text-red-500 text-sm mt-1">
-                    {errors?.productName?.message}
-                  </span>
-                )}
-              </div>
-
-              {/* Quantity */}
-              <div className="flex flex-col">
-                <label
-                  htmlFor="quantity"
-                  className="font-medium text-gray-500 mb-2"
-                >
-                  Quantity
-                </label>
-                <input
-                  type="number"
-                  className={`border-[1px] h-[2rem] rounded-md p-2 ${
-                    errors.Product_Quantity ? "input-error" : ""
-                  }`}
-                  id="quantity"
-                  placeholder="Product quantity"
-                  {...register("Product_Quantity", {
-                    required: "Product Quantity is required",
-                  })}
-                />
-                {errors.Product_Quantity && (
-                  <span className="text-red-500 text-sm mt-1">
-                    {errors?.Product_Quantity?.message}
-                  </span>
-                )}
-              </div>
-
-              {/* Unit */}
-              <div className="flex flex-col">
-                <label
-                  htmlFor="unit"
-                  className="font-medium text-gray-500 mb-2"
-                >
-                  Unit
-                </label>
-                <input
-                  type="text"
-                  className={`border-[1px] h-[2rem] w-[3rem] rounded-md p-1 ${
-                    errors.unit ? "input-error" : ""
-                  }`}
-                  id="unit"
-                  placeholder="KG"
-                  {...register("unit", {
-                    required: "Product unit is required",
-                  })}
-                />
-              </div>
-
-              {/* Price */}
-              <div className="flex flex-col">
-                <label
-                  htmlFor="price"
-                  className="font-medium text-gray-500 mb-2"
-                >
-                  Price
-                </label>
-                <input
-                  type="number"
-                  className={`border-[1px] h-[2rem] w-[10rem] rounded-md p-1 ${
-                    errors.price ? "input-error" : ""
-                  }`}
-                  id="price"
-                  placeholder="₹"
-                  {...register("price", {
-                    required: "Price is required",
-                  })}
-                />
-
-                {errors.price && (
-                  <span className="text-red-500 text-sm mt-1">
-                    {errors.price.message}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="flex flex-col mt-5 border-b-2 pb-10">
-              <label
-                htmlFor="description"
-                className="font-medium text-gray-500 mb-2"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                rows={5}
-                className="w-[15rem] border-[1px] p-1 rounded-md"
-                {...register("productDescription")}
-              />
-            </div>
-
-            {/* Product Image */}
-            <h1 className="font-semibold text-[1.2rem] my-5">Product Image</h1>
-            <div className="flex gap-10">
-              {/* Thumbnail */}
-              <div>
-                <h1 className="font-medium text-gray-500 mb-2">
-                  Product Thumbnail
-                </h1>
-                <input
-                  type="file"
-                  id="file"
-                  accept="image/*"
-                  onChange={handleChange}
-                  className="hidden"
-                />
-                <div className="w-[10rem] h-[3rem] bg-black flex justify-center items-center cursor-pointer rounded-2xl">
-                  <label
-                    htmlFor="file"
-                    className="text-white flex gap-1 cursor-pointer"
-                  >
-                    <Camera color="#ffffff" />
-                    Upload image
-                  </label>
-                </div>
-
-                {/* Display Thumbnail */}
-                <div className="h-[8rem] w-[8rem] mt-5 rounded-xl overflow-hidden relative">
-                  {file && (
-                    <>
-                      <CircleX
-                        color="#bd0000"
-                        className="m-1 absolute right-0 z-20"
-                        onClick={handleDeleteImg}
-                      />
-                      <img
-                        src={file}
-                        className="w-full h-full block object-cover"
-                      />
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* Multi Image */}
-              <div>
-                <h1 className="font-medium text-gray-500 mb-2">
-                  Product Images
-                </h1>
-                <input
-                  type="file"
-                  multiple
-                  onChange={handleMultipleImg}
-                  accept="image/*"
-                  className="hidden"
-                  id="multifile"
-                />
-                <div className="w-[10rem] h-[3rem] bg-black flex justify-center items-center cursor-pointer rounded-2xl">
-                  <label
-                    htmlFor="multifile"
-                    className="text-white flex gap-1 cursor-pointer"
-                  >
-                    <Camera color="#ffffff" />
-                    Upload images
-                  </label>
-                </div>
-
-                {/* Display Multiple Images */}
+   <>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <section className="h-full border-2 w-full p-5 rounded-2xl relative">
+  
+            {loading ? (<div className="h-full top-0 left-0 rounded-2xl opacity-60 w-full z-50 bg-gray-700  flex justify-center items-center absolute">
+            <span className="loading loading-dots loading-lg bg-white"></span>
+            </div>) :""}
+            
+            <div>
+              <h1 className="text-[2rem] font-semibold mb-5">Add New Product</h1>
+  
+              <div className="w-full">
+                <h1 className="font-semibold text-[1.2rem] mb-5">Product Info</h1>
+  
+                {/* Product Name */}
                 <div className="flex gap-5">
-                  {multiFile.map((value, index) => (
-                    <div
-                      key={index}
-                      className="h-[8rem] w-[8rem] mt-5 rounded-xl overflow-hidden relative"
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="productname"
+                      className="font-medium text-gray-500 mb-2"
                     >
-                      <CircleX
-                        color="#bd0000"
-                        className="m-1 absolute right-0 z-20"
-                        onClick={() => handleDeleteMultipleImg(index)}
-                      />
-                      <img
-                        src={value}
-                        className="w-full h-full block object-cover"
-                      />
+                      Product Name
+                    </label>
+                    <input
+                      type="text"
+                      className={`border-[1px] h-[2rem] rounded-md p-2 ${
+                        errors.productName ? "input-error" : ""
+                      }`}
+                      id="productname"
+                      placeholder="Product name"
+                      {...register("productName", {
+                        required: "Product Name is required",
+                      })}
+                    />
+                    {errors.productName && (
+                      <span className="text-red-500 text-sm mt-1">
+                        {errors?.productName?.message}
+                      </span>
+                    )}
+                  </div>
+  
+                  {/* Quantity */}
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="quantity"
+                      className="font-medium text-gray-500 mb-2"
+                    >
+                      Quantity
+                    </label>
+                    <input
+                      type="number"
+                      className={`border-[1px] h-[2rem] rounded-md p-2 ${
+                        errors.Product_Quantity ? "input-error" : ""
+                      }`}
+                      id="quantity"
+                      placeholder="Product quantity"
+                      {...register("Product_Quantity", {
+                        required: "Product Quantity is required",
+                      })}
+                    />
+                    {errors.Product_Quantity && (
+                      <span className="text-red-500 text-sm mt-1">
+                        {errors?.Product_Quantity?.message}
+                      </span>
+                    )}
+                  </div>
+  
+                  {/* Unit */}
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="unit"
+                      className="font-medium text-gray-500 mb-2"
+                    >
+                      Unit
+                    </label>
+                    <input
+                      type="text"
+                      className={`border-[1px] h-[2rem] w-[3rem] rounded-md p-1 ${
+                        errors.unit ? "input-error" : ""
+                      }`}
+                      id="unit"
+                      placeholder="KG"
+                      {...register("unit", {
+                        required: "Product unit is required",
+                      })}
+                    />
+                  </div>
+  
+                  {/* Price */}
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="price"
+                      className="font-medium text-gray-500 mb-2"
+                    >
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      className={`border-[1px] h-[2rem] w-[10rem] rounded-md p-1 ${
+                        errors.price ? "input-error" : ""
+                      }`}
+                      id="price"
+                      placeholder="₹"
+                      {...register("price", {
+                        required: "Price is required",
+                      })}
+                    />
+  
+                    {errors.price && (
+                      <span className="text-red-500 text-sm mt-1">
+                        {errors.price.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+  
+                {/* Description */}
+                <div className="flex flex-col mt-5 border-b-2 pb-10">
+                  <label
+                    htmlFor="description"
+                    className="font-medium text-gray-500 mb-2"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    id="description"
+                    rows={5}
+                    className="w-[15rem] border-[1px] p-1 rounded-md"
+                    {...register("productDescription")}
+                  />
+                </div>
+  
+                {/* Product Image */}
+                <h1 className="font-semibold text-[1.2rem] my-5">
+                  Product Image
+                </h1>
+                <div className="flex gap-10">
+                  {/* Thumbnail */}
+                  <div>
+                    <h1 className="font-medium text-gray-500 mb-2">
+                      Product Thumbnail
+                    </h1>
+                    <input
+                      type="file"
+                      id="file"
+                      accept="image/*"
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    <div className="w-[10rem] h-[3rem] bg-black flex justify-center items-center cursor-pointer rounded-2xl">
+                      <label
+                        htmlFor="file"
+                        className="text-white flex gap-1 cursor-pointer"
+                      >
+                        <Camera color="#ffffff" />
+                        Upload image
+                      </label>
                     </div>
-                  ))}
+  
+                    {/* Display Thumbnail */}
+                    <div className="h-[8rem] w-[8rem] mt-5 rounded-xl overflow-hidden relative">
+                      {file && (
+                        <>
+                          <CircleX
+                            color="#bd0000"
+                            className="m-1 absolute right-0 z-20"
+                            onClick={handleDeleteImg}
+                          />
+                          <img
+                            src={file}
+                            className="w-full h-full block object-cover"
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
+  
+                  {/* Multi Image */}
+                  <div>
+                    <h1 className="font-medium text-gray-500 mb-2">
+                      Product Images
+                    </h1>
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleMultipleImg}
+                      accept="image/*"
+                      className="hidden"
+                      id="multifile"
+                    />
+                    <div className="w-[10rem] h-[3rem] bg-black flex justify-center items-center cursor-pointer rounded-2xl">
+                      <label
+                        htmlFor="multifile"
+                        className="text-white flex gap-1 cursor-pointer"
+                      >
+                        <Camera color="#ffffff" />
+                        Upload images
+                      </label>
+                    </div>
+  
+                    {/* Display Multiple Images */}
+                    <div className="flex gap-5">
+                      {multiFile.map((value, index) => (
+                        <div
+                          key={index}
+                          className="h-[8rem] w-[8rem] mt-5 rounded-xl overflow-hidden relative"
+                        >
+                          <CircleX
+                            color="#bd0000"
+                            className="m-1 absolute right-0 z-20"
+                            onClick={() => handleDeleteMultipleImg(index)}
+                          />
+                          <img
+                            src={value}
+                            className="w-full h-full block object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+  
+                {/* Submit Buttons */}
+                <div className="flex flex-row gap-5 mt-5 w-full justify-end">
+                  <button
+                    type="submit"
+                    className="btn bg-[#FF5906] text-white hover:text-black"
+                  >
+                    Save
+                  </button>
+                  <div className="btn btn-outline" onClick={handleClear}>
+                    Clear
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Submit Buttons */}
-            <div className="flex flex-row gap-5 mt-5 w-full justify-end">
-              <button
-                type="submit"
-                className="btn bg-[#FF5906] text-white hover:text-black"
-              >
-                Save
-              </button>
-              <div className="btn btn-outline" onClick={handleClear}>
-                Clear
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </form>
+          </section>
+        </form>
+      </>
   );
 };

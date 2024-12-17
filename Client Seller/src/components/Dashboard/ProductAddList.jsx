@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 export const ProductAddList = ({ item, setData }) => {
   const [isSelected, setIsSelected] = useState(false);
 
-  console.log(item, "===item");
+
 
   const handleCheckboxChange = () => {
     setIsSelected(!isSelected);
