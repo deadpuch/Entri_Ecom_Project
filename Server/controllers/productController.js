@@ -126,6 +126,13 @@ export const editProduct = async (req, res, next) => {
 
     const updateFields = {}; // Object to dynamically store fields to update
 
+    const { productId } = req.params;
+
+    // Validate product ID
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+
     // Process product images if provided
     if (req.files.itemImage && req.files.itemImage.length > 0) {
       const arrayImage = req.files.itemImage;
@@ -136,7 +143,11 @@ export const editProduct = async (req, res, next) => {
           return imageUrl;
         })
       );
-      updateFields.productImage = await Promise.all(itemImg);
+      const newImages = await Promise.all(itemImg);
+      await PRODUCT.updateOne(
+        { _id: productId },
+        { $push: { "productImage.0": newImages } }
+      );
     }
 
     // Process thumbnail image if provided
@@ -156,13 +167,6 @@ export const editProduct = async (req, res, next) => {
       updateFields.productDescription = productDescription;
     if (category) updateFields.category = category;
     if (review) updateFields.review = review;
-
-    const { productId } = req.params;
-
-    // Validate product ID
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      return res.status(400).json({ message: "Invalid product ID" });
-    }
 
     // Update the product with only the provided fields
     await PRODUCT.updateOne({ _id: productId }, { $set: updateFields });

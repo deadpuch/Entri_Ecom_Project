@@ -10,13 +10,14 @@ export const EditProduct = () => {
   const { id } = useParams();
   const [multiFile, setMultiFile] = useState([]);
   const [file, setFile] = useState();
+ const [loading, setLoading] = useState(false);
 
-  const [productData, loading, error] = useFetch(
+  const [productData] = useFetch(
     `/admin/product/get-productDetails/${id}`
   );
 
-  console.log(multiFile,"===multifile");
-  
+  console.log(multiFile, "===multifile");
+
   const imgLink = productData?.productImage?.[0];
 
   const {
@@ -35,15 +36,12 @@ export const EditProduct = () => {
     setValue("price", productData?.price);
     setMultiFile(productData?.productImage?.[0]);
     setFile(productData?.thumbnail);
-  }, [productData, setMultiFile]);
+  }, [productData]);
 
   const handleChange = (e) => {
-    const selectedFile = e.target.files[0]; // Get the selected file
-
-    if (selectedFile) {
-      setFile(URL.createObjectURL(selectedFile)); // Set preview URL for display
-      setValue("thumbnail", selectedFile); // Update the form value with the raw file
-    }
+    const selectedFile = e.target.files[0];
+    setFile(URL.createObjectURL(selectedFile));
+    setValue("thumbnail", selectedFile); // Set the thumbnail file manually
   };
 
   const handleDeleteImg = () => {
@@ -78,17 +76,17 @@ export const EditProduct = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, "=====data");
+      setLoading(true);
       const formData = new FormData();
       formData.append("productName", data.productName);
       formData.append("Product_Quantity", data.Product_Quantity);
       formData.append("unit", data.unit);
       formData.append("price", data.price);
       formData.append("productDescription", data.productDescription);
-      formData.append("thumbnail", data.thumbnail);
-      if (multiFile) {
-        Array.from(multiFile).forEach((file) => {
-          formData.append("itemImage", file);
+      data.thumbnail && formData.append("thumbnail", data.thumbnail); // Use the file from form
+      if (data.itemImage) {
+        Array.from(data.itemImage).forEach((file) => {
+          formData.append("itemImage", file); // Append multiple product images
         });
       }
       const response = await instance({
@@ -96,11 +94,12 @@ export const EditProduct = () => {
         method: "PUT",
         data: formData,
       });
+      setLoading(false);
       toast.success("Product created successfully");
-
-      setFile(null);
-      setMultiFile([]);
-      reset();
+      // Reset form and state
+      setFile(null); // Clear single image
+      setMultiFile([]); // Clear multiple images
+      reset(); // Reset react-hook-form fields
     } catch (error) {
       console.log(error, "===error");
       toast.error("Error while creating product");
@@ -110,8 +109,15 @@ export const EditProduct = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <section className="h-full border-2 w-full p-5 rounded-2xl">
+        {loading ? (
+          <div className="h-full top-0 left-0 rounded-2xl opacity-60 w-full z-50 bg-gray-700  flex justify-center items-center absolute">
+            <span className="loading loading-dots loading-lg bg-white"></span>
+          </div>
+        ) : (
+          ""
+        )}
         <div>
-          <h1 className="text-[2rem] font-semibold mb-5">Add New Product</h1>
+          <h1 className="text-[2rem] font-semibold mb-5">Edit Product</h1>
 
           <div className="w-full">
             <h1 className="font-semibold text-[1.2rem] mb-5">Product Info</h1>
