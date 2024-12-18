@@ -168,7 +168,7 @@ export const ProductDetail = () => {
               <div>
                 <div className="flex h-[30rem] mx-4">
                   <div className="gap-5 overflow-y-scroll scrollbar-hide">
-                    {singleProduct?.productImage?.[0].map((value, index) => (
+                    {singleProduct?.productImage?.[0]?.map((value, index) => (
                       <div
                         key={index}
                         className="bg-black h-[80px] w-[80px] rounded-2xl my-4 overflow-hidden border-none drop-shadow-md cursor-pointer"
