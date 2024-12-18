@@ -40,12 +40,10 @@ export const ProductDetail = () => {
 
   const handleWishlist = async () => {
     try {
-      setIsWishlist(!isWishlist);
-
       const response = await axiosInstance({
         url: "/user/wishlist/add",
         method: "POST",
-        data: { productId: data?._id },
+        data: { productId: singleProduct?._id },
       });
       toast.success("Product added to wishlist");
     } catch (error) {
@@ -250,7 +248,12 @@ export const ProductDetail = () => {
                   <button className="btn w-full mb-4" onClick={handleAdd}>
                     Add to Bag
                   </button>
-                  <div className="btn bg-red-400 w-full" onClick={handleWishlist}>Add to Favourate</div>
+                  <div
+                    className="btn bg-red-400 w-full"
+                    onClick={handleWishlist}
+                  >
+                    Add to Favourate
+                  </div>
                 </div>
               </div>
             </>
