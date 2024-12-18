@@ -16,7 +16,7 @@ export const EditProduct = () => {
     `/admin/product/get-productDetails/${id}`
   );
 
-  console.log(multiFile, "===multifile");
+
 
   const imgLink = productData?.productImage?.[0];
 

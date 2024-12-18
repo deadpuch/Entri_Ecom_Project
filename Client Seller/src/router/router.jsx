@@ -5,9 +5,7 @@ import { Login } from "../pages/shared/Login";
 import { BrowserRouter, Route, useParams } from "react-router";
 import { Routes } from "react-router";
 import { ProtectRoutes } from "./ProtectRoutes";
-import { UserList } from "../pages/UserList";
 import AddProduct from "../pages/addProduct";
-import { SellerList } from "../pages/SellerList";
 import { EditProduct } from "../pages/EditProduct";
 import { Setting } from "../pages/Setting";
 import { RestPassword } from "../pages/shared/ResetPassword";
@@ -17,6 +15,8 @@ import { EditProfile } from "../pages/EditProfile";
 import { AccountTerminate } from "../pages/AccountTerminate";
 import { SignUp } from "../pages/shared/SignUp";
 import { OrderList } from "../pages/OrderList";
+
+
 
 export const Router = () => {
   const params = useParams();

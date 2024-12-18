@@ -10,15 +10,10 @@ export const EditProduct = () => {
   const { id } = useParams();
   const [multiFile, setMultiFile] = useState([]);
   const [file, setFile] = useState();
+  const [loading, setLoading] = useState(false);
 
-
-
-  const [productData, loading, error] = useFetch(
-    `/admin/product/get-productDetails/${id}`
-  );
-
-console.log(productData,"===product");
-
+  const [productData] = useFetch(`/sales/seller-Product/single_product/${id}`);
+  const imgLink = productData?.productImage?.[0];
 
   const {
     register,
@@ -34,10 +29,9 @@ console.log(productData,"===product");
     setValue("unit", productData?.unit);
     setValue("productDescription", productData?.productDescription);
     setValue("price", productData?.price);
-    setMultiFile(productData?.productImage)
-    setFile(productData?.thumbnail)
+    setMultiFile(productData?.productImage);
+    setFile(productData?.thumbnail);
   }, [productData]);
-
 
   const handleChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -65,13 +59,20 @@ console.log(productData,"===product");
     }
   };
 
-  const handleDeleteMultipleImg = (index) => {
+  const handleDeleteMultipleImg = async (index) => {
+    const deleteMulti = imgLink[index];
+    const response = await instance({
+      url: `/sales/seller-Product/product-arrayimg-delete/${id}`,
+      data: { link: deleteMulti },
+      method: "DELETE",
+    });
+
     setMultiFile((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, "=====data");
+      setLoading(true);
       const formData = new FormData();
       formData.append("productName", data.productName);
       formData.append("Product_Quantity", data.Product_Quantity);
@@ -89,6 +90,7 @@ console.log(productData,"===product");
         method: "PUT",
         data: formData,
       });
+      setLoading(false);
       toast.success("Product created successfully");
       // Reset form and state
       setFile(null); // Clear single image
@@ -103,8 +105,15 @@ console.log(productData,"===product");
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <section className="h-full border-2 w-full p-5 rounded-2xl">
+        {loading ? (
+          <div className="h-full top-0 left-0 rounded-2xl opacity-60 w-full z-50 bg-gray-700  flex justify-center items-center absolute">
+            <span className="loading loading-dots loading-lg bg-white"></span>
+          </div>
+        ) : (
+          ""
+        )}
         <div>
-          <h1 className="text-[2rem] font-semibold mb-5">Add New Product</h1>
+          <h1 className="text-[2rem] font-semibold mb-5">Edit Product</h1>
 
           <div className="w-full">
             <h1 className="font-semibold text-[1.2rem] mb-5">Product Info</h1>
@@ -145,7 +154,6 @@ console.log(productData,"===product");
                   Quantity
                 </label>
                 <input
-                  defaultValue={productData?.Product_Quantity}
                   type="number"
                   className={`border-[1px] h-[2rem] rounded-md p-2 ${
                     errors.Product_Quantity ? "input-error" : ""
@@ -172,7 +180,6 @@ console.log(productData,"===product");
                   Unit
                 </label>
                 <input
-                  defaultValue={productData?.unit}
                   type="text"
                   className={`border-[1px] h-[2rem] w-[3rem] rounded-md p-1 ${
                     errors.unit ? "input-error" : ""
@@ -194,7 +201,6 @@ console.log(productData,"===product");
                   Price
                 </label>
                 <input
-                  defaultValue={productData?.price}
                   type="number"
                   className={`border-[1px] h-[2rem] w-[10rem] rounded-md p-1 ${
                     errors.price ? "input-error" : ""
@@ -223,7 +229,6 @@ console.log(productData,"===product");
                 Description
               </label>
               <textarea
-                value={productData?.productDescription}
                 id="description"
                 rows={5}
                 className="w-[15rem] border-[1px] p-1 rounded-md"

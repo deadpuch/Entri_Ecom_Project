@@ -9,12 +9,6 @@ import toast from "react-hot-toast";
 export const ProductAddList = ({ item, setData }) => {
   const [isSelected, setIsSelected] = useState(false);
 
-
-
-  const handleCheckboxChange = () => {
-    setIsSelected(!isSelected);
-  };
-
   const handelDelete = async () => {
     try {
       const response = await instance({
@@ -36,15 +30,6 @@ export const ProductAddList = ({ item, setData }) => {
         isSelected ? "bg-blue-100" : "bg-white"
       }`}
     >
-      {/* Checkbox */}
-      <div className="flex justify-center">
-        <input
-          type="checkbox"
-          checked={isSelected}
-          onChange={handleCheckboxChange}
-        />
-      </div>
-
       {/* Image */}
       <div className="flex justify-center">
         <div className="h-[5rem] w-[5rem] bg-black rounded-2xl overflow-clip">
