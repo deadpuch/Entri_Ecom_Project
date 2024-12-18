@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { WishCard } from "../../components/user-components/Web/WishCard";
-import { useFetch } from "../../hooks/useFetch";
 import { axiosInstance } from "../../config/axiosInstance";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { WishlistSkele } from "../../components/skeleton/WishlistSkele";
+
 
 export const Wishlist = () => {
   const [wishdata, setWishdata] = useState();
@@ -14,7 +15,7 @@ export const Wishlist = () => {
         url: "/user/wishlist/get",
         method: "GET",
       });
-
+      Array.from({ lenght: 8 }, () => <WishlistSkele />);
       setWishdata(response?.data?.wishlist);
     } catch (error) {
       console.log(error);
@@ -49,6 +50,7 @@ export const Wishlist = () => {
           <h1 className="text-[2.5rem] font-outFit ">Wishlist</h1>
         </div>
       </div>
+      
       {wishProduct?.map((value, index) => (
         <WishCard data={value} key={index} onRemove={handleRemoveProduct} />
       ))}

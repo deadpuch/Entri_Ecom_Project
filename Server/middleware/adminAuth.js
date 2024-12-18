@@ -7,7 +7,7 @@ export const adminAuth = (req, res, next) => {
     if (!token) {
       return res
         .status(400)
-        .json({ message: "Unauthorized: No token provided " });
+        .json({ message: "Please Login" });
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);

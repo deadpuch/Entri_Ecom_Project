@@ -14,7 +14,6 @@ export const Product = () => {
     navigate("/");
   };
 
-
   useEffect(() => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
@@ -39,9 +38,9 @@ export const Product = () => {
             </div>
           </div>
 
-          <div className="apigridChange grid grid-cols-1 xs:grid-cols-3 xxs:grid-cols-2 gap-5">
+          <div className=" grid grid-cols-1 xs:grid-cols-3 xxs:grid-cols-2 gap-5 justify-items-center">
             {loading ? (
-              Array.from({ length: items?.length }, () => <SkeltonCard />)
+              Array.from({ length: 8 }, () => <SkeltonCard />)
             ) : (
               <>
                 {items?.map((value, index) => (
@@ -53,16 +52,16 @@ export const Product = () => {
         </section>
       </main>
 
-      <main className="hidden md:block h-screen pt-20">
+      <main className="scrollbar-hide hidden md:block h-screen overflow-hidden overflow-y-scroll pt-20">
         <section className="md:container mx-auto ">
           {/* category */}
           <div className="my-10">
             <CateogaryList />
           </div>
 
-          <div className=" grid grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className=" grid grid-cols-3 xl:grid-cols-4 gap-3 justify-items-center">
             {loading ? (
-              Array.from({ length: items?.length }, () => <SkeltonCard />)
+              Array.from({ length: 12 }, () => <SkeltonCard />)
             ) : (
               <>
                 {items?.map((value, index) => (

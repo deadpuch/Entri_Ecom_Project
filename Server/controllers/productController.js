@@ -204,3 +204,23 @@ export const deleteProduct = async (req, res, next) => {
       .json({ message: error.message || "internal server error" });
   }
 };
+
+
+export const arrayImgDelete=async(req,res)=>{
+  try {
+    const productId = req.params.id;
+    const imageToDelete = req.params.image;
+    const result = await PRODUCT.updateOne(
+      { _id: productId },
+      { $pull: { productImage: imageToDelete } }
+    );
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: 'Product or image not found' });
+    }
+    res.json({ message: `Image ${imageToDelete} removed from product ${productId}` });
+  } catch (err) {
+    res
+      .status(error.statusCode || 500)
+      .json({ message: error.message || "internal server error" });
+  }
+}

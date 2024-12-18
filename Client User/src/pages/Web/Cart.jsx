@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/user-components/Web/CartItem";
 import { useFetch } from "../../hooks/useFetch";
 import { MobCartListCard } from "../../components/user-components/Mobile Components/MobCartListCard";
+import { CratSkele } from "../../components/skeleton/CratSkele";
+import { MobileCartSkele } from "../../components/skeleton/MobileCartSkele";
 
 export const Cart = () => {
   const navigate = useNavigate();
@@ -26,9 +28,16 @@ export const Cart = () => {
             <h2 className="ms-3">Cart</h2>
           </div>
         </div>
-        {cardLoop?.map((value) => (
-          <MobCartListCard data={value} key={value._id} setData={setQuerry} />
-        ))}
+
+        {loading
+          ? Array.from({ lenght: 8 }, () => <MobileCartSkele />)
+          : cardLoop?.map((value) => (
+              <MobCartListCard
+                data={value}
+                key={value._id}
+                setData={setQuerry}
+              />
+            ))}
 
         <div className="mx-4 border-t-2 pt-3 flex justify-between items-center mb-4">
           <h1>Total Order Amount</h1>
@@ -55,13 +64,15 @@ export const Cart = () => {
                 <h1 className="font-semibold text-[2rem]">Bag</h1>
 
                 <div className="scrollbar_change h-[80vh] overflow-y-scroll ">
-                  {cardLoop?.map((value) => (
-                    <CartItem
-                      data={value}
-                      key={value._id}
-                      setData={setQuerry}
-                    />
-                  ))}
+                  {loading
+                    ? Array.from({ length: 4 }, () => <CratSkele />)
+                    : cardLoop?.map((value) => (
+                        <CartItem
+                          data={value}
+                          key={value._id}
+                          setData={setQuerry}
+                        />
+                      ))}
                 </div>
               </div>
               <div>

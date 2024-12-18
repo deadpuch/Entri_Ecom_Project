@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Top } from "../../components/user-components/Web/Top";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Adcarosal } from "../../components/user-components/Web/Adcarosal";
 import { LatestProductCard } from "../../components/user-components/Web/LatestProductCard";
-import { axiosInstance } from "../../config/axiosInstance";
 import { useFetch } from "../../hooks/useFetch";
-import { ProductCard } from "../../components/user-components/Web/ProductCard";
-import { Footer } from "../../components/user-components/Web/Footer";
-import { Testimonial } from "../../components/user-components/Web/Testimonial";
-import { LatestCard } from "../../components/user-components/Web/LatestCard";
 import { TesmonialFront } from "../../components/user-components/Web/TesmonialFront";
 import { Search } from "lucide-react";
-import { CateogaryList } from "../../components/user-components/Mobile Components/CateogaryList";
+import { LatesSkele } from "../../components/skeleton/LatesSkele";
+import { LatestCard } from "../../components/user-components/Web/LatestCard";
+import { MobileProductSekel } from "../../components/skeleton/MobileProductSekel";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -50,21 +47,23 @@ export const Home = () => {
 
         {/* cateogry */}
         <section className="mt-5 ps-4 overflow-x-scroll scrollbar-hide">
-        <ul className="flex gap-5">
-          <li>ALL</li>
-          <li>FRUITS</li>
-          <li>VEGITABLES</li>
-        </ul>
-        
+          <ul className="flex gap-5">
+            <li>ALL</li>
+            <li>FRUITS</li>
+            <li>VEGITABLES</li>
+          </ul>
         </section>
 
         {/* latest products */}
-        <h2 className="my-5 text-[0.9rem] mx-4">latest medicines</h2>
+        <h2 className="my-5 text-[0.9rem] mx-4">latest Product</h2>
 
         <div className="scrollbar-hide flex overflow-scroll ">
-          {Item?.map((value) => (
-            <LatestProductCard key={value._id} item={value} />
-          ))}
+          {loading
+            ? Array.from({ length: 8 },() => <MobileProductSekel />)
+              
+            : Item?.map((value) => (
+                <LatestProductCard key={value._id} item={value} />
+              ))}
         </div>
       </main>
 
@@ -182,10 +181,14 @@ export const Home = () => {
         <section className="md:container mx-auto my-10  ">
           <h1 className="font-Edu text-[1.5rem] mb-5">Latest products</h1>
 
-          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2">
-            {Item?.map((value) => (
-              <LatestCard key={value._id} data={value} />
-            ))}
+          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 justify-items-center">
+            {loading
+              ? Array.from({ length: 8 },() => <LatesSkele/>)
+              : Item?.map((value) => (
+                  <LatestCard key={value._id} data={value} />
+                ))}
+
+            {}
           </div>
         </section>
 

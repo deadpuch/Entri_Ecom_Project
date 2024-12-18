@@ -25,7 +25,7 @@ export const latestItem = async (req, res, next) => {
   try {
     const allProducts = await PRODUCT.find()
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(8)
       .populate("admin_data", "-password -createdAt -updatedAt -__v")
       .populate(
         "seller_data",

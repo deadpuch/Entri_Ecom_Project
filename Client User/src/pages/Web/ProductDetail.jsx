@@ -29,9 +29,6 @@ export const ProductDetail = () => {
   const [count, setCount] = useState(1);
   const [showRateReview, setShowRateReview] = useState(false);
 
-console.log(singleProduct,);
-
-
   useEffect(() => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
@@ -40,6 +37,22 @@ console.log(singleProduct,);
       setMainImage(singleProduct?.productImage?.[0]?.[0]);
     }
   }, [singleProduct]);
+
+  const handleWishlist = async () => {
+    try {
+      setIsWishlist(!isWishlist);
+
+      const response = await axiosInstance({
+        url: "/user/wishlist/add",
+        method: "POST",
+        data: { productId: data?._id },
+      });
+      toast.success("Product added to wishlist");
+    } catch (error) {
+      console.log(error);
+      toast.error("please Login");
+    }
+  };
 
   const handleAdd = async () => {
     try {
@@ -55,7 +68,6 @@ console.log(singleProduct,);
       toast.success("product added to cart");
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      
     }
   };
 
@@ -163,7 +175,10 @@ console.log(singleProduct,);
                         onMouseEnter={() => setMainImage(value)} // Update main image on hover
                       >
                         <img
-                          src={value ||"https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"}
+                          src={
+                            value ||
+                            "https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"
+                          }
                           alt="products"
                           className="block w-full h-full object-cover"
                         />
@@ -175,7 +190,10 @@ console.log(singleProduct,);
 
                   <div className="h-[30rem] w-[30rem] bg-red-500 ms-5 rounded-2xl overflow-hidden drop-shadow-md">
                     <img
-                      src={mainImage ||"https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"}
+                      src={
+                        mainImage ||
+                        "https://res.cloudinary.com/dcojdq9rw/image/upload/v1733554359/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz_sk5xvo.jpg"
+                      }
                       alt="Main Product"
                       className="object-cover w-full h-full"
                     />
@@ -232,7 +250,7 @@ console.log(singleProduct,);
                   <button className="btn w-full mb-4" onClick={handleAdd}>
                     Add to Bag
                   </button>
-                  <div className="btn bg-red-400 w-full">Add to Favourate</div>
+                  <div className="btn bg-red-400 w-full" onClick={handleWishlist}>Add to Favourate</div>
                 </div>
               </div>
             </>

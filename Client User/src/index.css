@@ -139,7 +139,3 @@ input:focus-visible{
   outline: none;
 }
 
-.apigridChange>section{
-  display: flex;
-  justify-content: center;
-}
