@@ -30,6 +30,9 @@ export const SellerCardRow = ({ getSeller, index }) => {
     }
   };
 
+  console.log(getSeller,"====");
+  
+
   return (
     <tr>
       <th>
@@ -42,7 +45,7 @@ export const SellerCardRow = ({ getSeller, index }) => {
           <div className="avatar">
             <div className="mask mask-squircle h-12 w-12">
               <img
-                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                src={getSeller?.profilePic}
                 alt="profile Image"
               />
             </div>

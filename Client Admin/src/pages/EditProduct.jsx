@@ -15,6 +15,10 @@ export const EditProduct = () => {
     `/admin/product/get-productDetails/${id}`
   );
 
+  console.log(multiFile,"===multifile");
+  
+  const imgLink = productData?.productImage?.[0];
+
   const {
     register,
     handleSubmit,
@@ -31,7 +35,7 @@ export const EditProduct = () => {
     setValue("price", productData?.price);
     setMultiFile(productData?.productImage?.[0]);
     setFile(productData?.thumbnail);
-  }, [productData,setMultiFile]);
+  }, [productData, setMultiFile]);
 
   const handleChange = (e) => {
     const selectedFile = e.target.files[0]; // Get the selected file
@@ -49,30 +53,26 @@ export const EditProduct = () => {
 
   const handleMultipleImg = (e) => {
     if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const previewUrls = filesArray.map((file) => URL.createObjectURL(file));
+      const filesArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file)
+      );
 
       if (multiFile.length + filesArray.length <= 5) {
-        setMultiFile((prevImages) => [
-          ...prevImages,
-          ...filesArray.map((file, i) => ({
-            raw: file,
-            preview: previewUrls[i],
-          })),
-        ]);
-
-        // Set raw files for form submission
-        setValue("itemImage", [
-          ...(multiFile.map((img) => img.raw) || []),
-          ...filesArray,
-        ]);
+        setMultiFile((prevImages) => prevImages.concat(filesArray));
+        setValue("itemImage", e.target.files); // Set the multiple files manually
       } else {
         alert("You can only upload a maximum of 5 images.");
       }
     }
   };
 
-  const handleDeleteMultipleImg = (index) => {
+  const handleDeleteMultipleImg = async (index) => {
+    const deleteMulti = imgLink[index];
+    const response = await instance({
+      url: `/admin/product/product-arrayimg-delete/${id}`,
+      data: { link: deleteMulti },
+      method: "DELETE",
+    });
     setMultiFile((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 

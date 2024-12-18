@@ -3,6 +3,7 @@ import { sellerAuth } from "../middleware/sellerAuth.js";
 import {deleteProducts, individualProducts, sellerAddProduct, sellerEditProduct, sellerProducts} from "../controllers/sellerProduct.js";
 import { upload } from "../middleware/multer.js";
 import { getAllOrders, getSellerOrders, updateOrder } from "../controllers/ManagingOrders.js";
+import { arrayImgDelete } from "../controllers/productController.js";
 
 
 const fileUpload = upload.fields([
@@ -25,6 +26,7 @@ router.delete("/delete_product/:productId", sellerAuth, deleteProducts)
 
 
 router.get("/seller/orders",sellerAuth,getSellerOrders)
+router.delete("/product-arrayimg-delete/:productId",sellerAuth, arrayImgDelete);
 // router.put("/admin/orders/:id",sellerAuth, updateOrder);
 
 

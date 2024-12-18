@@ -2,6 +2,7 @@ import express from "express";
 import { adminAuth } from "../middleware/adminAuth.js";
 import {
   addProduct,
+  arrayImgDelete,
   deleteAllProduct,
   deleteProduct,
   editProduct,
@@ -27,6 +28,8 @@ router.put("/product-update/:productId",fileUpload, adminAuth, editProduct);
 
 router.delete("/product-deleteAll", adminAuth, deleteAllProduct);
 router.delete("/product-delete/:productId", adminAuth, deleteProduct);
+
+router.delete("/product-arrayimg-delete/:productId", adminAuth, arrayImgDelete);
 
 // router.post("/selleraddproduct", saleAuth, sellerAddProduct);
 

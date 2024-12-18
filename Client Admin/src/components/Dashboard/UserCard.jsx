@@ -5,10 +5,8 @@ import { useFetch } from "../../hooks/userFetch";
 export const UserCard = () => {
   const [userdata, loading, error] = useFetch("/admin/get-alluser");
 
+  console.log(userdata, "===userdata");
 
-console.log(userdata,"===userdata");
-
-  
   return (
     <div className="h-[75vh] overflow-clip overflow-y-scroll">
       <table className="table ">
@@ -25,25 +23,16 @@ console.log(userdata,"===userdata");
             <th>Address</th>
             <th>craeted At</th>
             <th>Active</th>
-            
+
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {userdata && userdata.map((user, index) => (
-            <UserCardRow getuser={user} user={user._id} key={index} />
-          ))}
+          {userdata &&
+            userdata.map((user, index) => (
+              <UserCardRow getuser={user} user={user._id} key={index} />
+            ))}
         </tbody>
-        {/* foot */}
-        {/* <tfoot>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-    </tfoot> */}
       </table>
     </div>
   );

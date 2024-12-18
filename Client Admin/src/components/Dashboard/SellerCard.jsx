@@ -2,7 +2,6 @@ import React from "react";
 import { useFetch } from "../../hooks/userFetch";
 import { SellerCardRow } from "./SellerCardRow";
 
-
 export const SellerCard = () => {
   const [sellerdata, loading, error] = useFetch("/admin/get-allSellers");
 
@@ -33,16 +32,6 @@ export const SellerCard = () => {
               <SellerCardRow getSeller={user} index={user._id} />
             ))}
         </tbody>
-        {/* foot */}
-        {/* <tfoot>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-    </tfoot> */}
       </table>
     </div>
   );
