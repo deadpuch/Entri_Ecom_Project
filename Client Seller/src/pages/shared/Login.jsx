@@ -2,8 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
-import toast from"react-hot-toast"
-
+import toast from "react-hot-toast";
 
 export const Login = () => {
   const {
@@ -16,7 +15,6 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, "====data");
       const response = await instance({
         url: "sales/login",
         method: "POST",

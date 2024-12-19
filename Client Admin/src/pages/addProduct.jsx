@@ -17,9 +17,6 @@ const AddProduct = () => {
 
   const [data, loading, error, setData] = useFetch(user.product_api);
 
-  console.log(data,"===data");
-  
-
   return (
     <section>
       {/* Header section */}
@@ -46,16 +43,19 @@ const AddProduct = () => {
         </ul>
 
         <div>
-        
-{loading ? Array.from({length:5}).map((_,index)=>( <AddproductlistSkele key={index}/>)): data?.map((value) => (
-    <ProductAddList
-      key={value._id}
-      item={value}
-      setData={setData}
-    />
-  ))}
+          {loading
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <AddproductlistSkele key={index} />
+              ))
+            : data?.map((value) => (
+                <ProductAddList
+                  key={value._id}
+                  item={value}
+                  setData={setData}
+                />
+              ))}
 
-  {/*  */}
+          {/*  */}
         </div>
       </div>
     </section>

@@ -8,8 +8,6 @@ export const Myprofile = () => {
   const [userData] = useFetch("/user/profile");
   const [address] = useFetch("/user/get-address");
 
-  console.log(address, "====address");
-
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 

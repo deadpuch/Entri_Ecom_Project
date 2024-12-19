@@ -4,7 +4,6 @@ import { clearAdminData, saveAdminData } from "../Redux/features/adminSlice";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { instance } from "../config/AxiosInstance";
 
-
 export const ProtectRoutes = () => {
   const { isAdminAuth, adminData } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
@@ -25,9 +24,6 @@ export const ProtectRoutes = () => {
       console.log(error);
     }
   };
-
-  console.log(isAdminAuth, "====adminauth");
-  console.log(adminData, "====admindata");
 
   useEffect(() => {
     adminAuth();

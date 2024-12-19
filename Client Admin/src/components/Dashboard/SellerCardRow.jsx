@@ -19,7 +19,7 @@ export const SellerCardRow = ({ getSeller, index }) => {
 
       if (newActiveState == true) {
         toast.success("User Activated");
-      }else{
+      } else {
         toast.success("User Terminated successfully ");
       }
     } catch (error) {
@@ -29,9 +29,6 @@ export const SellerCardRow = ({ getSeller, index }) => {
       setIsActive(!newActiveState);
     }
   };
-
-  console.log(getSeller,"====");
-  
 
   return (
     <tr>
@@ -44,10 +41,7 @@ export const SellerCardRow = ({ getSeller, index }) => {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="mask mask-squircle h-12 w-12">
-              <img
-                src={getSeller?.profilePic}
-                alt="profile Image"
-              />
+              <img src={getSeller?.profilePic} alt="profile Image" />
             </div>
           </div>
           <div>
@@ -58,20 +52,14 @@ export const SellerCardRow = ({ getSeller, index }) => {
       <td>
         <span className="font-medium">{getSeller?.Email}</span>
       </td>
-      <td>
-      {getSeller?.company_name}
-      </td>
+      <td>{getSeller?.company_name}</td>
+
+      <td>{getSeller?.GST_no}</td>
 
       <td>
-      {getSeller?.GST_no}
-      </td>
-
-      <td>
-      {
-       getSeller?.createdAt 
-       ? new Date(getSeller.createdAt).toLocaleDateString() 
-       : null
-      }
+        {getSeller?.createdAt
+          ? new Date(getSeller.createdAt).toLocaleDateString()
+          : null}
       </td>
       <th>
         <input

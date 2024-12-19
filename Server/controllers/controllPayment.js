@@ -15,7 +15,7 @@ export const controllPayment = async (req, res, next) => {
       return res.status(400).json({ message: "Products are required" });
     }
 
-    console.log(adminId, sellerId, "=======admin or sekker");
+  
 
     if (!adminId && !sellerId) {
       return res
@@ -112,7 +112,7 @@ export const confirmPayment = async (req, res) => {
       order.paymentDetails.stripeSessionId
     );
 
-    console.log(session, "Stripe Session Details");
+    
 
     // Step 3: Validate the payment status
     if (session.payment_status === "paid") {

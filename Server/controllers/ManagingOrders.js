@@ -4,7 +4,6 @@ import { Order } from "../models/order.js";
 export const getAdminOrders = async (req, res) => {
   try {
     const adminId = req.admin.id;
-    const salesId = req.sales.id;
 
     const orders = await Order.find({ admin: adminId })
       .populate("user", "name email")

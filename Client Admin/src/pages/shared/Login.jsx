@@ -2,8 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { instance } from "../../config/AxiosInstance";
-import toast from "react-hot-toast"
-
+import toast from "react-hot-toast";
 
 export const Login = () => {
   const {
@@ -16,7 +15,6 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, "====data");
       const response = await instance({
         url: "/admin/login",
         method: "POST",
@@ -38,8 +36,7 @@ export const Login = () => {
         <div className="h-screen w-full flex justify-center items-center">
           <div>
             <h1 className="font-bold text-2xl">
-              Hello Admin <br />{" "}
-              <span className="text-[2.5rem]"> Welcome</span>{" "}
+              Hello Admin <br /> <span className="text-[2.5rem]"> Welcome</span>{" "}
             </h1>
 
             <div className="w-80 h-80 my-10">

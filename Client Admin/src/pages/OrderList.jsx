@@ -5,8 +5,6 @@ import { useFetch } from "../hooks/userFetch";
 export const OrderList = () => {
   const [orderData] = useFetch("/admin/admin/orders");
 
-  console.log(orderData,"===data");
-  
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -26,8 +24,9 @@ export const OrderList = () => {
             <th>Created At</th>
           </tr>
         </thead>
-        {orderData?.map((value , index)=>(<OrderListCard data={value} key={index} />))}
-        
+        {orderData?.map((value, index) => (
+          <OrderListCard data={value} key={index} />
+        ))}
       </table>
     </div>
   );

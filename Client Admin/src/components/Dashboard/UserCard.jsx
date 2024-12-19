@@ -5,8 +5,6 @@ import { useFetch } from "../../hooks/userFetch";
 export const UserCard = () => {
   const [userdata, loading, error] = useFetch("/admin/get-alluser");
 
-  console.log(userdata, "===userdata");
-
   return (
     <div className="h-[75vh] overflow-clip overflow-y-scroll">
       <table className="table ">

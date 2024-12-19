@@ -7,8 +7,6 @@ import { OrderCard } from "../../components/user-components/Web/OrderCard";
 export const Order = () => {
   const [orderData] = useFetch("/user/user-orders");
 
-  console.log(orderData, "ooooooooo");
-
   return (
     <section className="pt-16 md:h-screen md:p-24">
       <div className="flex px-4 top-0 w-full justify-between fixed z-10 bg-white py-4 md:hidden">

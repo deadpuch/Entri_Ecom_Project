@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 export const createReview = async (req, res, next) => {
   try {
 
-    // console.log( req.user.id,"=====");
+ 
     
     const { productId } = req.params;
     const { rating, comment, user_data } = req.body;
@@ -17,7 +17,7 @@ export const createReview = async (req, res, next) => {
     const order = await Order.findOne({user:req.user.id,
       products: { $elemMatch: { productId:productId }} });
 
-console.log(order.paymentStatus,"=====");
+c
 
     
       if (order.paymentStatus !=="Completed") {

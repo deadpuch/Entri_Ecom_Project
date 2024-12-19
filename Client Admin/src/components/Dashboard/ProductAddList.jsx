@@ -1,15 +1,11 @@
 import { Pencil, Trash2 } from "lucide-react";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { instance } from "../../config/AxiosInstance";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
-
-
 
 export const ProductAddList = ({ item, setData }) => {
   const [isSelected, setIsSelected] = useState(false);
-
-  console.log(item, "===item");
 
   const handleCheckboxChange = () => {
     setIsSelected(!isSelected);
@@ -23,8 +19,6 @@ export const ProductAddList = ({ item, setData }) => {
       });
       setData((prev) => prev.filter((product) => product._id !== item?._id));
 
-      console.log("test toast working");
-
       toast.success("Product deleted succesfully");
     } catch (error) {
       toast.error("Failed to delete product");
@@ -32,20 +26,20 @@ export const ProductAddList = ({ item, setData }) => {
     }
   };
 
-
-  
   return (
     <div
       className={`grid grid-cols-8 m-2 p-1 items-center  border rounded-lg ${
         isSelected ? "bg-blue-100" : "bg-white"
       }`}
     >
-     
-
       {/* Image */}
       <div className="flex justify-center">
         <div className="h-[5rem] w-[5rem] bg-black rounded-2xl overflow-hidden ">
-          <img src={item?.thumbnail} alt="Item" className="h-full w-full object-cover block" />
+          <img
+            src={item?.thumbnail}
+            alt="Item"
+            className="h-full w-full object-cover block"
+          />
         </div>
       </div>
 

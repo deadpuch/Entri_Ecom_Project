@@ -8,7 +8,7 @@ const orderSchema = mongoose.Schema(
     },
     admin: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "admin",
+      ref: "admins",
     },
     seller: {
       type: mongoose.Schema.Types.ObjectId,
