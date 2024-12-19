@@ -45,7 +45,7 @@ export const createReview = async (req, res, next) => {
     });
   } catch (error) {
     res.status(error.statusCode || 500).json({
-      message: error.message || "Internal server error",
+      message: "Feedback allowed only after purchase.",
     });
   }
 };
