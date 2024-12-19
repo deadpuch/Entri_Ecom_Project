@@ -29,7 +29,7 @@ export const EditProduct = () => {
     setValue("unit", productData?.unit);
     setValue("productDescription", productData?.productDescription);
     setValue("price", productData?.price);
-    setMultiFile(productData?.productImage);
+    setMultiFile(productData?.productImage?.[0]);
     setFile(productData?.thumbnail);
   }, [productData]);
 
