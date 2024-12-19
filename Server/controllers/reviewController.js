@@ -6,26 +6,20 @@ import mongoose from "mongoose";
 
 export const createReview = async (req, res, next) => {
   try {
-
- 
-    
     const { productId } = req.params;
     const { rating, comment, user_data } = req.body;
     const userId = req.user.id;
 
-  
-    const order = await Order.findOne({user:req.user.id,
-      products: { $elemMatch: { productId:productId }} });
+    const order = await Order.findOne({
+      user: req.user.id,
+      products: { $elemMatch: { productId: productId } },
+    });
 
-c
-
-    
-      if (order.paymentStatus !=="Completed") {
-        return res
-          .status(401)
-          .json({ message: "Feedback allowed only after purchase." });
-      }
-
+    if (order.paymentStatus !== "Completed") {
+      return res
+        .status(401)
+        .json({ message: "Feedback allowed only after purchase." });
+    }
 
     // Create the review
     const review = await REVIEW.create({
