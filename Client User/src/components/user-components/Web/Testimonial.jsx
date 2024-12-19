@@ -3,6 +3,7 @@ import React from "react";
 
 export const Testimonial = ({ data, key }) => {
 
+console.log(data);
 
   return (
     <div>

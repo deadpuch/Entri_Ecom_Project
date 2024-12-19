@@ -7,13 +7,17 @@ import mongoose from "mongoose";
 export const createReview = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const { rating, comment, user_data } = req.body;
+    const { rating, comment} = req.body;
     const userId = req.user.id;
+   
 
     const order = await Order.findOne({
       user: req.user.id,
       products: { $elemMatch: { productId: productId } },
     });
+
+   
+    
 
     if (order.paymentStatus !== "Completed") {
       return res
@@ -27,7 +31,7 @@ export const createReview = async (req, res, next) => {
       productId,
       rating,
       comment,
-      user_data, // Save complete user data
+      user_data:userId, // Save complete user data
     });
 
     // Link the review to the product
@@ -51,7 +55,7 @@ export const allReview = async (req, res, next) => {
     const { userId } = req.user.id;
 
     const reviews = await REVIEW.find(userId).populate(
-      "user_data",
+      "userId",
       "User_name profilePic"
     );
 
