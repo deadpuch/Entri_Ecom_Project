@@ -24,7 +24,7 @@ export const LatestCard = ({ data }) => {
       toast.success("Product added to wishlist");
     } catch (error) {
       console.log(error);
-      toast.error("please Login");
+      toast.error(error.response.data.message);
     }
   };
   return (
